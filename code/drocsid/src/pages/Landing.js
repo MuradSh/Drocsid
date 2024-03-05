@@ -4,7 +4,7 @@ import "./Landing.css";
 const Landing = () => {
   return (
     <div>
-      <nav className="navbar" id="navMenu">
+      <nav className="navbar" id="navMenu" data-testid="navMenu">
         <div className="container">
           <div className="navbar-title">
             <a className="navbar-brand" href="index.html">
@@ -49,7 +49,7 @@ const Landing = () => {
         </div>
       </section>
 
-      <section class="info-section">
+      <section class="info-section" data-testid="hero-section">
         <div class="info-piece">
           <div class="info-text">
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
