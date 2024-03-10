@@ -32,10 +32,10 @@ function SignUp() {
       <div className="signup">
         <form>
           <label htmlFor="chk" aria-hidden="true">Sign up</label>
-          <input type="text" name="txt" placeholder="User name" required="" />
-          <input type="email" name="email" placeholder="Email" required="" />
-          <input type="password" name="pswd" placeholder="Password" required="" />
-          <button>Sign up</button>
+          <input type="text" name="txt" placeholder="User name" required />
+          <input type="email" name="email" placeholder="Email" required />
+          <input type="password" name="pswd" placeholder="Password" required />
+          <input type="submit" value="Sign up" className='cfa' />
         </form>
         <span className='signInSwitch' onClick={handleSignUpClick} >Already have an account? Sign in</span>
       </div>

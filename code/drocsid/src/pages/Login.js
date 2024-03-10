@@ -23,9 +23,9 @@ function Login() {
       <div className="login">
         <form>
           <label htmlFor="chk" aria-hidden="true">Sign In</label>
-          <input type="email" name="email" placeholder="Email" required="" />
-          <input type="password" name="pswd" placeholder="Password" required="" />
-          <button>Sign In</button>
+          <input type="email" name="email" placeholder="Email" required />
+          <input type="password" name="pswd" placeholder="Password" required />
+          <input type="submit" value="Sign In" class="cfa" />
         </form>
         <span className='signUpSwitch' onClick={handleSignUpClick} >Don't have an account? Sign Up</span>
       </div>
