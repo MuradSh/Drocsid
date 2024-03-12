@@ -15,7 +15,7 @@ const Home = () => {
   useEffect(() => {
     // Navigate to login if user is not logged in
     if (!userLoggedIn) {
-      navigate('/login');
+      navigate('/');
     } else {
         const fetchItems = async () => {
             const querySnapshot = await getDocs(collection(firestore, "events"));

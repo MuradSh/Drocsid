@@ -27,7 +27,7 @@ function SignUp() {
   };
 
   const handleSignInClick = () => {
-    navigate('/login'); 
+    navigate('/'); 
   };
 
   return (
