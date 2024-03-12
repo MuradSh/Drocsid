@@ -1,47 +1,70 @@
 import React, { useEffect, useState } from "react";
-import "./Home.css"; // Ensure you update your CSS for a modern, clean look
-
-const mockEvents = [
-  { id: '1', name: 'The Phantom of the Opera', description: 'Experience the classic musical in an unforgettable performance.', category: 'Theater' },
-  { id: '2', name: 'Rock on the Range', description: 'A weekend of rock music featuring top bands from around the world.', category: 'Concerts' },
-  { id: '3', name: 'NBA Finals 2024', description: 'Watch the two top teams battle it out for the championship title.', category: 'Sports' },
-  { id: '4', name: 'Hamilton', description: 'The story of America then, told by America now.', category: 'Theater' },
-  { id: '5', name: 'Summer Music Festival', description: 'An outdoor festival featuring the best of pop, electronic, and indie music.', category: 'Concerts' },
-  { id: '6', name: 'World Cup 2024 Qualifiers', description: 'See the national teams compete for a spot in the World Cup.', category: 'Sports' },
-];
+import "./Home.css"; // Ensure your CSS file is correctly linked for styling
+import { useAuth } from "../contexts/authContext"; // Adjust this path to where your AuthContext is located
+import { useNavigate } from 'react-router-dom';
+import { firestore } from '../firebase/firebase'; // Adjust this path to where your Firebase config is initialized
+import { collection, getDocs } from 'firebase/firestore';
 
 const Home = () => {
-  const [items, setItems] = useState([]);
+  const { userLoggedIn } = useAuth();
+  const navigate = useNavigate();
+  const [allItems, setAllItems] = useState([]); // Use to store all fetched items
+  const [filteredItems, setFilteredItems] = useState([]); // Use to store items after applying category filter
   const [selectedCategory, setSelectedCategory] = useState("All");
   const categories = ["All", "Concerts", "Sports", "Theater"];
 
   useEffect(() => {
-    const filteredItems = mockEvents.filter(
+    // Redirect if not logged in
+    if (!userLoggedIn) {
+      navigate('/');
+      return;
+    }
+
+    // Fetch items from Firestore
+    const fetchItems = async () => {
+      const querySnapshot = await getDocs(collection(firestore, "events"));
+      const itemsArray = querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setAllItems(itemsArray); // Store fetched items
+    };
+
+    fetchItems().catch(console.error);
+  }, [userLoggedIn, navigate]);
+
+  useEffect(() => {
+    // Filter items based on selected category
+    const filteredItems = allItems.filter(
       (item) => selectedCategory === "All" || item.category === selectedCategory
     );
-    setItems(filteredItems);
-  }, [selectedCategory]);
+    setFilteredItems(filteredItems); // Update state with filtered items
+  }, [selectedCategory, allItems]);
 
   return (
     <div className="home">
-      <nav className="navbar"> {/* Add navigation content here */}</nav>
+      <nav className="navbar"> {/* Your navigation content here */}</nav>
       <div className="category-filters">
         {categories.map((category) => (
-          <button key={category} onClick={() => setSelectedCategory(category)} className={`filter-button ${selectedCategory === category ? "active" : ""}`}>
+          <button 
+            key={category} 
+            onClick={() => setSelectedCategory(category)}
+            className={`filter-button ${selectedCategory === category ? "active" : ""}`}
+          >
             {category}
           </button>
         ))}
       </div>
       <main className="event-listings">
-        {items.map((event) => (
+        {filteredItems.map((event) => (
           <div key={event.id} className="event-card">
             <h3>{event.name}</h3>
             <p>{event.description}</p>
-            <p>{event.date}</p>
+            {/* Include event.date if your data contains it */}
           </div>
         ))}
       </main>
-      <footer className="footer"> {/* Footer content */}</footer>
+      <footer className="footer"> {/* Footer content here */}</footer>
     </div>
   );
 };
