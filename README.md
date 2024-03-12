@@ -23,3 +23,14 @@ Non-Functional Requirements:
 The website should be responsive and able to handle multiple users.
 The system should protect user data, and guarantee secure payment processing.
 The user interface should be easy to navigate, possibly implementing accessibility features.
+
+Set up:
+1. Head to folder 'code/drocsid'.
+2. Run command ```npm install``` to install node_modules locally.
+3. Run command ```npm start``` to run website locally for testing purposes.
+
+For errors try:
+1. ```npm update```
+2. ```npm audit fix --force```
+3. If the error still persists, now copy paste the error to google or GPT :)
+
