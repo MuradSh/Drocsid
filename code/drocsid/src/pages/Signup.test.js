@@ -28,5 +28,4 @@ describe('SignUp Component', () => {
     alertMock.mockRestore();
   });
 
-  // Add more tests here for other functionalities, e.g., successful submission, validations, etc.
 });
