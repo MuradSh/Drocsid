@@ -7,7 +7,6 @@
 
 :root {
     --purple: #4357AD;
-    --black: #172121;
 }
 
 /* Reusable */
@@ -208,6 +207,7 @@ img{
     left: 7.5rem;
     top: 50%;
     transform: translateY(-50%);
+    color: #fff;
 }
 
 .hero-text{
@@ -268,8 +268,4 @@ img{
     background-color: #fff;
     transition: 0.4s ease-in-out;
 }
-
-
-
-
 
