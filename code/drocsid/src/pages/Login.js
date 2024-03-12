@@ -13,15 +13,11 @@ const Login = () => {
   // handleSubmit attempts to log the user in
   const handleSubmit = async (event) => {
     event.preventDefault(); // Prevents the default form submission action
-    try {
-      await doSignInWithEmailAndPassword(email, password);
-      console.log("Login successful", { email }); 
-      navigate("/home"); // Redirect the user to the homepage after successful login
-    } catch (error) {
-      console.error("Login failed", error); 
-    }
+    // Bypassing the sign-in operation for testing purposes
+    console.log("Bypassing login for testing", { email }); 
+    navigate("/home"); // Redirect the user to the homepage
   };
-
+  
   // Navigates to sign up page
   const handleSignUpClick = () => {
     navigate("/signup"); 
