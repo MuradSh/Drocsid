@@ -1,69 +1,72 @@
-import React, { useEffect, useState } from 'react';
-import './Home.css'; // Make sure you have this CSS file for styling
-import { useAuth } from "../contexts/authContext";
-import { doSignOut } from '../firebase/auth';
+import React, { useEffect, useState } from "react";
+import "./Home.css"; // Ensure your CSS file is correctly linked for styling
+import { useAuth } from "../contexts/authContext"; // Adjust this path to where your AuthContext is located
 import { useNavigate } from 'react-router-dom';
-import { firestore } from '../firebase/firebase'; // Adjust the path as per your project structure
-import { collection, getDocs, doc } from 'firebase/firestore';
+import { firestore } from '../firebase/firebase'; // Adjust this path to where your Firebase config is initialized
+import { collection, getDocs } from 'firebase/firestore';
 
 const Home = () => {
   const { userLoggedIn } = useAuth();
   const navigate = useNavigate();
-  const [items, setItems] = useState([]); // State to store the fetched data
-//   const events = doc(firestore, "events");
+  const [allItems, setAllItems] = useState([]); // Use to store all fetched items
+  const [filteredItems, setFilteredItems] = useState([]); // Use to store items after applying category filter
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const categories = ["All", "Concerts", "Sports", "Theater"];
 
   useEffect(() => {
-    // Navigate to login if user is not logged in
+    // Redirect if not logged in
     if (!userLoggedIn) {
       navigate('/');
-    } else {
-        const fetchItems = async () => {
-            const querySnapshot = await getDocs(collection(firestore, "events"));
-            const itemsArray = querySnapshot.docs.map(doc => ({
-              id: doc.id,
-              ...doc.data(),
-            }));
-            setItems(itemsArray);
-          };
-    
-          fetchItems().catch(console.error);
+      return;
     }
+
+    // Fetch items from Firestore
+    const fetchItems = async () => {
+      const querySnapshot = await getDocs(collection(firestore, "events"));
+      const itemsArray = querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setAllItems(itemsArray); // Store fetched items
+    };
+
+    fetchItems().catch(console.error);
   }, [userLoggedIn, navigate]);
 
-  const handleSignOut = async () => {
-    try {
-      await doSignOut();
-      console.log("You've been signed out successfully.");
-    } catch (error) {
-      console.error("Error signing out:", error);
-    }
-  };
+  useEffect(() => {
+    // Filter items based on selected category
+    const filteredItems = allItems.filter(
+      (item) => selectedCategory === "All" || item.category === selectedCategory
+    );
+    setFilteredItems(filteredItems); // Update state with filtered items
+  }, [selectedCategory, allItems]);
 
   return (
-    <div className="home-container">
-      <header className="home-header">
-        <h1>Welcome to Our Website!</h1>
-        {userLoggedIn && (
-          <button onClick={handleSignOut} className="sign-out-button">Sign Out</button>
-        )}
-      </header>
-      <section className="home-content">
-        <p>This is your go-to place for all things exciting and new. Explore our events:</p>
-        {/* Displaying items from Firestore */}
-        <div className="items-list">
-          {items.map(item => (
-            <div key={item.id} className="item">
-              <h3>{item.name}</h3> {/* Adjust according to your data structure */}
-              <p>{item.desc}</p> {/* Adjust according to your data structure */}
-            </div>
-          ))}
-        </div>
-      </section>
-      <footer className="home-footer">
-        <p>Contact us at <a href="mailto:info@example.com">info@example.com</a></p>
-      </footer>
+    <div className="home">
+      <nav className="navbar"> {/* Your navigation content here */}</nav>
+      <div className="category-filters">
+        {categories.map((category) => (
+          <button 
+            key={category} 
+            onClick={() => setSelectedCategory(category)}
+            className={`filter-button ${selectedCategory === category ? "active" : ""}`}
+          >
+            {category}
+          </button>
+        ))}
+      </div>
+      <main className="event-listings">
+        {filteredItems.map((event) => (
+          <div key={event.id} className="event-card">
+            <h3>{event.name}</h3>
+            <p>{event.description}</p>
+            {/* Include event.date if your data contains it */}
+          </div>
+        ))}
+      </main>
+      <footer className="footer"> {/* Footer content here */}</footer>
     </div>
   );
-}
+};
 
 export default Home;

@@ -1,31 +1,74 @@
-.home-container {
+.home {
+  font-family: 'Arial', sans-serif;
+  color: #333;
+}
+
+/* .navbar {
+  background-color: #1f1f1f;
+  color: white;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+} */
+
+/* Assuming you will add actual navigation content here */
+
+.category-filters {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.filter-button {
+  background-color: transparent;
+  border: 2px solid #0054db;
+  color: #0054db;
+  padding: 10px 20px;
+  margin: 0 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.filter-button:hover,
+.filter-button.active {
+  background-color: #0054db;
+  color: white;
+}
+
+.event-listings {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+.event-card {
+  background-color: white;
+  border: 1px solid #e1e1e1;
+  border-radius: 4px;
+  padding: 15px;
+  width: 300px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 20px; /* Add space below each card */
+}
+
+.event-card:hover {
+  transform: translateY(-5px); /* Move the card up */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Increase the shadow */
+}
+
+.event-card h3 {
+  color: #0054db;
+  margin-bottom: 10px;
+}
+
+/* .footer {
+  background-color: #1f1f1f;
+  color: white;
   text-align: center;
   padding: 20px;
-}
-
-.home-header {
-  background-color: #f8f9fa;
-  padding: 20px;
-  margin-bottom: 20px;
-}
-
-.home-content,
-.home-features {
-  margin: 20px;
-  padding: 20px;
-}
-
-.home-footer {
-  margin-top: 20px;
-  padding: 20px;
-  background-color: #f8f9fa;
-}
-
-a {
-  color: #007bff;
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-}
+  margin-top: 30px;
+} */
