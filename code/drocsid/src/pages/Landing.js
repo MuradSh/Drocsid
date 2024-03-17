@@ -1,5 +1,33 @@
 import React from "react";
 import "./Landing.css";
+import Faqs from "./Faqs";
+
+const faqsList = [
+  {
+    id: 0,
+    questionText: 'Lorem ipsum dolor sit amet?',
+    answerText:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, urna ac aliquet ultricies, nunc nisl tincidunt nunc, nec tincidunt nisl nunc auctor nunc. Nulla facilisi. Sed id semper nunc. Sed euismod, urna ac aliquet ultricies, nunc nisl tincidunt nunc, nec tincidunt nisl nunc auctor nunc. Nulla facilisi.',
+  },
+  {
+    id: 1,
+    questionText: 'Lorem ipsum dolor sit amet?',
+    answerText:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, urna ac aliquet ultricies, nunc nisl tincidunt nunc, nec tincidunt nisl nunc auctor nunc. Nulla facilisi. Sed id semper nunc. Sed euismod, urna ac aliquet ultricies, nunc nisl tincidunt nunc, nec tincidunt nisl nunc auctor nunc. Nulla facilisi.',
+  },
+  {
+    id: 2,
+    questionText: 'Lorem ipsum dolor sit amet?',
+    answerText:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, urna ac aliquet ultricies, nunc nisl tincidunt nunc, nec tincidunt nisl nunc auctor nunc. Nulla facilisi. Sed id semper nunc. Sed euismod, urna ac aliquet ultricies, nunc nisl tincidunt nunc, nec tincidunt nisl nunc auctor nunc. Nulla facilisi.',
+  },
+  {
+    id: 3,
+    questionText: 'Lorem ipsum dolor sit amet?',
+    answerText:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, urna ac aliquet ultricies, nunc nisl tincidunt nunc, nec tincidunt nisl nunc auctor nunc. Nulla facilisi. Sed id semper nunc. Sed euismod, urna ac aliquet ultricies, nunc nisl tincidunt nunc, nec tincidunt nisl nunc auctor nunc. Nulla facilisi.',
+  },
+];
 
 const Landing = () => {
   return (
@@ -36,7 +64,7 @@ const Landing = () => {
           <div className="hero-text">
             <span>Event Ticketing</span>
           </div>
-          <p class="hero-subtext">
+          <p className="hero-subtext">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
             lacus purus, vehicula et justo ut, lobortis aliquet leo. Nulla ac
             justo eget odio rhoncus suscipit quis vel ligula. Aliquam cursus
@@ -49,35 +77,36 @@ const Landing = () => {
         </div>
       </section>
 
-      <section class="info-section" data-testid="hero-section">
-        <div class="info-piece">
-          <div class="info-text">
+      <section className="info-section" data-testid="hero-section">
+        <div className="info-piece">
+          <div className="info-text">
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
-            <div class="discover-btn">Learn more</div>
+            <div className="discover-btn">Learn more</div>
           </div>
-          <div class="info-img-container">
-            <img src="Saly-2.png" alt="" class="info-img"></img>
+          <div className="info-img-container">
+            <img src="Saly-2.png" alt="" className="info-img"></img>
           </div>
         </div>
-        <div class="info-piece">
-          <div class="info-text">
+        <div className="info-piece">
+          <div className="info-text">
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
-            <div class="discover-btn">Learn more</div>
+            <div className="discover-btn">Learn more</div>
           </div>
-          <div class="info-img-container">
-            <img src="Saly-31.png" alt="" class="info-img"></img>
+          <div className="info-img-container">
+            <img src="Saly-31.png" alt="" className="info-img"></img>
           </div>
         </div>
-        <div class="info-piece">
-          <div class="info-text">
+        <div className="info-piece">
+          <div className="info-text">
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
-            <div class="discover-btn">Learn more</div>
+            <div className="discover-btn">Learn more</div>
           </div>
-          <div class="info-img-container">
-            <img src="Saly-3.png" alt="" class="info-img"></img>
+          <div className="info-img-container">
+            <img src="Saly-3.png" alt="" className="info-img"></img>
           </div>
         </div>
       </section>
+    <Faqs faqsList={faqsList} />
     </div>
   );
 };
