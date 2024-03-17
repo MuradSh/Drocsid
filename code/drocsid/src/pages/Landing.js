@@ -1,55 +1,81 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Landing.css";
 import Faqs from "./Faqs";
+import { useAuth } from "../contexts/authContext";
+import { doSignOut } from "../firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 const faqsList = [
   {
     id: 0,
-    questionText: 'Lorem ipsum dolor sit amet?',
+    questionText: "Lorem ipsum dolor sit amet?",
     answerText:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, urna ac aliquet ultricies, nunc nisl tincidunt nunc, nec tincidunt nisl nunc auctor nunc. Nulla facilisi. Sed id semper nunc. Sed euismod, urna ac aliquet ultricies, nunc nisl tincidunt nunc, nec tincidunt nisl nunc auctor nunc. Nulla facilisi.',
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, urna ac aliquet ultricies, nunc nisl tincidunt nunc, nec tincidunt nisl nunc auctor nunc. Nulla facilisi. Sed id semper nunc. Sed euismod, urna ac aliquet ultricies, nunc nisl tincidunt nunc, nec tincidunt nisl nunc auctor nunc. Nulla facilisi.",
   },
   {
     id: 1,
-    questionText: 'Lorem ipsum dolor sit amet?',
+    questionText: "Lorem ipsum dolor sit amet?",
     answerText:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, urna ac aliquet ultricies, nunc nisl tincidunt nunc, nec tincidunt nisl nunc auctor nunc. Nulla facilisi. Sed id semper nunc. Sed euismod, urna ac aliquet ultricies, nunc nisl tincidunt nunc, nec tincidunt nisl nunc auctor nunc. Nulla facilisi.',
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, urna ac aliquet ultricies, nunc nisl tincidunt nunc, nec tincidunt nisl nunc auctor nunc. Nulla facilisi. Sed id semper nunc. Sed euismod, urna ac aliquet ultricies, nunc nisl tincidunt nunc, nec tincidunt nisl nunc auctor nunc. Nulla facilisi.",
   },
   {
     id: 2,
-    questionText: 'Lorem ipsum dolor sit amet?',
+    questionText: "Lorem ipsum dolor sit amet?",
     answerText:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, urna ac aliquet ultricies, nunc nisl tincidunt nunc, nec tincidunt nisl nunc auctor nunc. Nulla facilisi. Sed id semper nunc. Sed euismod, urna ac aliquet ultricies, nunc nisl tincidunt nunc, nec tincidunt nisl nunc auctor nunc. Nulla facilisi.',
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, urna ac aliquet ultricies, nunc nisl tincidunt nunc, nec tincidunt nisl nunc auctor nunc. Nulla facilisi. Sed id semper nunc. Sed euismod, urna ac aliquet ultricies, nunc nisl tincidunt nunc, nec tincidunt nisl nunc auctor nunc. Nulla facilisi.",
   },
   {
     id: 3,
-    questionText: 'Lorem ipsum dolor sit amet?',
+    questionText: "Lorem ipsum dolor sit amet?",
     answerText:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, urna ac aliquet ultricies, nunc nisl tincidunt nunc, nec tincidunt nisl nunc auctor nunc. Nulla facilisi. Sed id semper nunc. Sed euismod, urna ac aliquet ultricies, nunc nisl tincidunt nunc, nec tincidunt nisl nunc auctor nunc. Nulla facilisi.',
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, urna ac aliquet ultricies, nunc nisl tincidunt nunc, nec tincidunt nisl nunc auctor nunc. Nulla facilisi. Sed id semper nunc. Sed euismod, urna ac aliquet ultricies, nunc nisl tincidunt nunc, nec tincidunt nisl nunc auctor nunc. Nulla facilisi.",
   },
 ];
 
 const Landing = () => {
+  const { userLoggedIn } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Navigate to login if user is not logged in
+    if (!userLoggedIn) {
+      navigate("/");
+    }
+  }, [userLoggedIn, navigate]);
+
+  const handleSignOut = async () => {
+    try {
+      await doSignOut();
+      console.log("You've been signed out successfully.");
+    } catch (error) {
+      console.error("Error signing out:", error);
+    }
+  };
+
   return (
     <div>
       <nav className="navbar" id="navMenu" data-testid="navMenu">
         <div className="container">
           <div className="navbar-title">
-            <a className="navbar-brand" href="index.html">
+            <a className="navbar-brand" href="/landing">
               drocsid
             </a>
           </div>
 
           <div className="nav-links" id="navbarNav">
             <div className="navbar-nav nav-primary">
-              <a className="nav-link active-link" href="/">
+              <a className="nav-link active-link" href="/landing">
                 Option 1
               </a>
-              <a className="nav-link" href="/">
+              <a className="nav-link" href="/landing">
                 Option 2
               </a>
-              <a className="nav-link" href="/">
-                Option 3
+              <a className="nav-link">
+                {userLoggedIn && (
+                  <button onClick={handleSignOut} className="sign-out-button">
+                    Sign Out
+                  </button>
+                )}
               </a>
             </div>
           </div>
@@ -106,7 +132,7 @@ const Landing = () => {
           </div>
         </div>
       </section>
-    <Faqs faqsList={faqsList} />
+      <Faqs faqsList={faqsList} />
     </div>
   );
 };
