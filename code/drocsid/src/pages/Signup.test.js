@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import SignUp from './SignUp';
+import SignUp from './Signup';
 import * as reactRouterDom from 'react-router-dom';
 import * as auth from '../firebase/auth';
 
