@@ -269,3 +269,70 @@ img{
     transition: 0.4s ease-in-out;
 }
 
+* Category Browsing Section */
+.category-browsing-section {
+  padding: 2rem 0;
+  background-color: #f7f7f7; /* Light background to distinguish section */
+}
+
+.category-filters {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.filter-button {
+  background-color: transparent;
+  border: 2px solid var(--purple); /* Use existing color variable */
+  color: var(--purple);
+  text-transform: uppercase;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.filter-button:hover, .filter-button.active {
+  background-color: var(--purple); /* Matching the navbar color */
+  color: white;
+}
+
+.event-listings {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.event-card {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+  width: calc(33.333% - 1rem); /* 3 items per row with gap */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.event-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.event-card h3 {
+  color: var(--purple); /* Title color matches buttons */
+  margin-bottom: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .event-card {
+    width: calc(50% - 1rem); /* 2 items per row for smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .event-card {
+    width: 100%; /* 1 item per row for mobile screens */
+  }
+}

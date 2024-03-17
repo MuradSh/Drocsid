@@ -1,6 +1,10 @@
-import React from "react";
-import "./Landing.css";
+import React, { useEffect, useState } from "react";
+import "./Landing.css"; 
 import Faqs from "./Faqs";
+import { useAuth } from "../contexts/authContext"; // Adjust this path as necessary
+import { useNavigate } from 'react-router-dom';
+import { firestore } from '../firebase/firebase'; // Adjust this path as necessary
+import { collection, getDocs } from 'firebase/firestore';
 
 const faqsList = [
   {
@@ -30,6 +34,38 @@ const faqsList = [
 ];
 
 const Landing = () => {
+  const { userLoggedIn } = useAuth();
+  const navigate = useNavigate();
+  const [allItems, setAllItems] = useState([]);
+  const [filteredItems, setFilteredItems] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const categories = ["All", "Concerts", "Sports", "Theater"];
+
+  useEffect(() => {
+    if (!userLoggedIn) {
+      navigate('/');
+      return;
+    }
+
+    const fetchItems = async () => {
+      const querySnapshot = await getDocs(collection(firestore, "events"));
+      const itemsArray = querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setAllItems(itemsArray);
+    };
+
+    fetchItems().catch(console.error);
+  }, [userLoggedIn, navigate]);
+
+  useEffect(() => {
+    const filteredItems = allItems.filter(
+      (item) => selectedCategory === "All" || item.category === selectedCategory
+    );
+    setFilteredItems(filteredItems);
+  }, [selectedCategory, allItems]);
+
   return (
     <div>
       <nav className="navbar" id="navMenu" data-testid="navMenu">
@@ -74,6 +110,29 @@ const Landing = () => {
             sodales ullamcorper enim non interdum. In fringilla augue a posuere
             volutpat.
           </p>
+        </div>
+      </section>
+
+      <section className="category-browsing-section">
+        <div className="category-filters">
+          {categories.map((category) => (
+            <button 
+              key={category} 
+              onClick={() => setSelectedCategory(category)}
+              className={`filter-button ${selectedCategory === category ? "active" : ""}`}
+            >
+              {category}
+            </button>
+          ))}
+        </div>
+        <div className="event-listings">
+          {filteredItems.map((event) => (
+            <div key={event.id} className="event-card">
+              <h3>{event.name}</h3>
+              <p>{event.description}</p>
+              {/* Event date can be included here if available */}
+            </div>
+          ))}
         </div>
       </section>
 
