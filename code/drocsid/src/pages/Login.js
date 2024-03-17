@@ -16,7 +16,7 @@ const Login = () => {
     try {
       await doSignInWithEmailAndPassword(email, password);
       console.log("Login successful", { email }); 
-      navigate("/home"); // Redirect the user to the homepage after successful login
+      navigate("/landing"); // Redirect the user to the homepage after successful login
     } catch (error) {
       console.error("Login failed", error); 
     }
@@ -29,7 +29,7 @@ const Login = () => {
 
   return (
     <div className="main">
-      {userLoggedIn && navigate("/home")}
+      {userLoggedIn && navigate("/Landing")}
       <div className="login">
         <form onSubmit={handleSubmit}>
           <label htmlFor="email" aria-hidden="true">

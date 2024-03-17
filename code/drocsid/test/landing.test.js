@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import Landing from './Landing'; // Replace './Landing' with your actual path
+import Landing from '../src/pages/Landing'; // Replace './Landing' with your actual path
 
 // Test suite for Landing component
 describe('Landing component', () => {

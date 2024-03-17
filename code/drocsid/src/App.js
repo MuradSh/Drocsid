@@ -2,7 +2,7 @@ import React from "react";
 import "./App.css";
 import Login from "./pages/Login";
 import SignUp from "./pages/Signup";
-import Home from "./pages/Home";
+import Landing from "./pages/Landing";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./contexts/authContext";
 
@@ -13,7 +13,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/home" element={<Home />} />
+          <Route path="/landing" element={<Landing />} />
         </Routes>
       </AuthProvider>
     </Router>
