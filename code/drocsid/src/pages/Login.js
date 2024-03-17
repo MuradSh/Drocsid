@@ -1,36 +1,70 @@
-// Login.js
-import './signup.css';
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import "./signup.css";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { doSignInWithEmailAndPassword } from "../firebase/auth";
+import { useAuth } from "../contexts/authContext";
 
-function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const navigate = useNavigate(); // Create navigate function
+const Login = () => {
+    const { userLoggedIn } = useAuth();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
-    event.preventDefault(); // Prevents the default form submit action (page reload)
-    // Here, you can handle the login logic, like calling an API to authenticate the user
-    console.log('Login Submitted', { email, password });
+  // handleSubmit attempts to log the user in
+  const handleSubmit = async (event) => {
+    event.preventDefault(); // Prevents the default form submission action
+    try {
+      await doSignInWithEmailAndPassword(email, password);
+      console.log("Login successful", { email }); 
+      navigate("/home"); // Redirect the user to the homepage after successful login
+    } catch (error) {
+      console.error("Login failed", error); 
+    }
   };
 
+  // Navigates to sign up page
   const handleSignUpClick = () => {
-    navigate('/signUp'); // Navigate to the signUp route
+    navigate("/signup"); 
   };
 
   return (
     <div className="main">
+      {userLoggedIn && navigate("/home")}
       <div className="login">
-        <form>
-          <label htmlFor="chk" aria-hidden="true">Sign In</label>
-          <input type="email" name="email" placeholder="Email" required />
-          <input type="password" name="pswd" placeholder="Password" required />
-          <input type="submit" value="Sign In" class="cfa" />
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="email" aria-hidden="true">
+            Sign In
+          </label>
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            type="password"
+            name="pswd"
+            placeholder="Password"
+            required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <input type="submit" value="Sign In" className="cfa" />{" "}
         </form>
-        <span className='signUpSwitch' onClick={handleSignUpClick} >Don't have an account? Sign Up</span>
+        <span
+          className="forgotPasswordSwitch"
+          onClick={() => navigate("/forgotPassword")}
+        >
+          Forgot password? Click here
+        </span>
+        <span className="signUpSwitch" onClick={handleSignUpClick}>
+          Don't have an account? Sign Up
+        </span>
       </div>
     </div>
   );
-}
+};
 
 export default Login;

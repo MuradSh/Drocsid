@@ -1,7 +1,7 @@
-// SignUp.js
 import './signup.css';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { doCreateUserWithEmailAndPassword } from '../firebase/auth';
 
 function SignUp() {
   const [email, setEmail] = useState('');
@@ -10,34 +10,66 @@ function SignUp() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
-    event.preventDefault(); // Prevents the default form submit action (page reload)
-    // Validation logic here, e.g., check if passwords match
+  const handleSubmit = async (event) => {
+    event.preventDefault(); // Prevents the default form submit action 
     if (password !== confirmPassword) {
       alert("Passwords don't match.");
       return; // Stops the function if passwords don't match
     }
-    // Here, you can handle the sign-up logic, like calling an API to register the user
-    console.log('SignUp Submitted', { username, email, password });
+    try {
+      // Create user with email and password
+      await doCreateUserWithEmailAndPassword(email, password);
+      console.log('SignUp successful', { username, email }); 
+      navigate('/home'); // Redirect the user after successful sign-up
+    } catch (error) {
+      console.error('SignUp failed', error); 
+    }
   };
 
-  const handleSignUpClick = () => {
-    navigate('/');
-  }
+  const handleSignInClick = () => {
+    navigate('/'); 
+  };
 
   return (
     <div className="main">
-      <input type="checkbox" id="chk" aria-hidden="true" />
-
       <div className="signup">
-        <form>
-          <label htmlFor="chk" aria-hidden="true">Sign up</label>
-          <input type="text" name="txt" placeholder="User name" required />
-          <input type="email" name="email" placeholder="Email" required />
-          <input type="password" name="pswd" placeholder="Password" required />
-          <input type="submit" value="Sign up" className='cfa' />
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="username" aria-hidden="true">Sign up</label>
+          <input 
+            type="text" 
+            name="username" 
+            placeholder="User name" 
+            required 
+            value={username} 
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <input 
+            type="email" 
+            name="email" 
+            placeholder="Email" 
+            required 
+            value={email} 
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input 
+            type="password" 
+            name="password" 
+            placeholder="Password" 
+            required 
+            value={password} 
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <input 
+            type="password" 
+            name="confirmPassword" 
+            placeholder="Confirm Password" 
+            required 
+            value={confirmPassword} 
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          />
+          <input type="submit" value="Sign up" className="cfa" />
         </form>
-        <span className='signInSwitch' onClick={handleSignUpClick} >Already have an account? Sign in</span>
+        <span className='signInSwitch' onClick={handleSignInClick} >Already have an account? Sign in</span>
       </div>
     </div>
   );
