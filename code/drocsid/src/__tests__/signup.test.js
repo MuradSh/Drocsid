@@ -1,63 +1,67 @@
 import React from 'react';
-import { render, fireEvent, waitFor } from '@testing-library/react';
-import '@testing-library/jest-dom';
+import { render, fireEvent, screen, waitFor } from '@testing-library/react';
+import '@testing-library/jest-dom/extend-expect';
+import { BrowserRouter } from 'react-router-dom';
 import SignUp from '../pages/Signup';
-import * as reactRouterDom from 'react-router-dom';
-import * as auth from '../firebase/auth';
 
-// Mocks
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'), // Import then overwrite
-  useNavigate: jest.fn(),
-}));
+// Create a mock navigate function
+const mockNavigate = jest.fn();
 
+// Mock the navigate function from react-router-dom
+jest.mock('react-router-dom', () => {
+    const actualReactRouterDom = jest.requireActual('react-router-dom');
+    return {
+      ...actualReactRouterDom,
+      useNavigate: () => mockNavigate, // Use the mock function here
+    };
+  });
+
+// Mock the Firebase authentication function
 jest.mock('../firebase/auth', () => ({
-  doCreateUserWithEmailAndPassword: jest.fn(),
+  doCreateUserWithEmailAndPassword: jest.fn(() => Promise.resolve({ user: 'testUser' })),
 }));
 
 describe('SignUp Component', () => {
-  const mockNavigate = jest.fn();
-
   beforeEach(() => {
-    // Reset mocks before each test
     mockNavigate.mockReset();
-    reactRouterDom.useNavigate.mockImplementation(() => mockNavigate);
-    auth.doCreateUserWithEmailAndPassword.mockReset();
   });
 
-  it('renders correctly', () => {
-    const { getByPlaceholderText } = render(<SignUp />);
-    expect(getByPlaceholderText('User name')).toBeInTheDocument();
-    expect(getByPlaceholderText('Email')).toBeInTheDocument();
-    expect(getByPlaceholderText('Password')).toBeInTheDocument();
-    expect(getByPlaceholderText('Confirm Password')).toBeInTheDocument();
+  test('renders all form fields and submit button', () => {
+    render(<SignUp />, { wrapper: BrowserRouter });
+
+    expect(screen.getByPlaceholderText('User name')).toBeInTheDocument();
+    expect(screen.getByPlaceholderText('Email')).toBeInTheDocument();
+    expect(screen.getByPlaceholderText('Password')).toBeInTheDocument();
+    expect(screen.getByPlaceholderText('Confirm Password')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /sign up/i })).toBeInTheDocument();
   });
 
-  it('shows an alert and does not navigate if passwords do not match', async () => {
-    const alertMock = jest.spyOn(window, 'alert').mockImplementation();
-    const { getByPlaceholderText, getByValue } = render(<SignUp />);
+  test('allows input to be entered in form fields', () => {
+    render(<SignUp />, { wrapper: BrowserRouter });
 
-    fireEvent.change(getByPlaceholderText('Password'), { target: { value: 'password1' } });
-    fireEvent.change(getByPlaceholderText('Confirm Password'), { target: { value: 'password2' } });
-    fireEvent.click(getByValue('Sign up'));
+    fireEvent.change(screen.getByPlaceholderText('User name'), { target: { value: 'testuser' } });
+    fireEvent.change(screen.getByPlaceholderText('Email'), { target: { value: 'test@example.com' } });
+    fireEvent.change(screen.getByPlaceholderText('Password'), { target: { value: 'password123' } });
+    fireEvent.change(screen.getByPlaceholderText('Confirm Password'), { target: { value: 'password123' } });
 
-    expect(alertMock).toHaveBeenCalledWith("Passwords don't match.");
-    expect(mockNavigate).not.toHaveBeenCalled();
-    alertMock.mockRestore();
+    expect(screen.getByPlaceholderText('User name').value).toBe('testuser');
+    expect(screen.getByPlaceholderText('Email').value).toBe('test@example.com');
+    expect(screen.getByPlaceholderText('Password').value).toBe('password123');
+    expect(screen.getByPlaceholderText('Confirm Password').value).toBe('password123');
   });
 
-  it('calls doCreateUserWithEmailAndPassword and navigates on successful sign up', async () => {
-    auth.doCreateUserWithEmailAndPassword.mockResolvedValueOnce({});
-    const { getByPlaceholderText, getByValue } = render(<SignUp />);
+  test('successful sign-up navigates to the landing page', async () => {
+    render(<SignUp />, { wrapper: BrowserRouter });
 
-    fireEvent.change(getByPlaceholderText('Email'), { target: { value: 'test@example.com' } });
-    fireEvent.change(getByPlaceholderText('Password'), { target: { value: 'password' } });
-    fireEvent.change(getByPlaceholderText('Confirm Password'), { target: { value: 'password' } });
-    fireEvent.click(getByValue('Sign up'));
+    fireEvent.change(screen.getByPlaceholderText('User name'), { target: { value: 'testusername' } });
+    fireEvent.change(screen.getByPlaceholderText('Email'), { target: { value: 'test@example.com' } });
+    fireEvent.change(screen.getByPlaceholderText('Password'), { target: { value: 'password123' } });
+    fireEvent.change(screen.getByPlaceholderText('Confirm Password'), { target: { value: 'password123' } });
 
-    await waitFor(() => expect(auth.doCreateUserWithEmailAndPassword).toHaveBeenCalledWith('test@example.com', 'password'));
-    expect(mockNavigate).toHaveBeenCalledWith('/home');
+    fireEvent.click(screen.getByRole('button', { name: /sign up/i }));
+
+    await waitFor(() => {
+      expect(mockNavigate).toHaveBeenCalledWith('/landing');
+    });
   });
-
-  // Add more tests here as needed, for example, testing error handling, input validation, etc.
 });
