@@ -241,6 +241,7 @@ img{
     column-gap: 5rem;
     border-radius: 1rem;
     margin: 0.5rem 0;
+    padding-bottom: 0.5rem;
 }
 
 .info-piece:nth-of-type(even){
@@ -269,3 +270,83 @@ img{
     transition: 0.4s ease-in-out;
 }
 
+
+.category-browsing{
+    .category-browsing {
+        padding: 2rem 0;
+        background-color: #f7f7f7; /* Adjust this color to match the one in your image */
+        /* Add a max-width and center the container */
+        max-width: 1200px; /* or the width of your choice */
+        margin: auto;
+        margin-bottom: 2rem;
+      }
+}
+
+.category-filters {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+.filter-button {
+    font-size: 1.5rem; /* Match font size */
+    margin: 1rem 0.5rem; /* Provide some space around the buttons */
+    border: 1px solid #fff; /* Match border style */
+    color: #fff; /* Text color set to white, adjust if necessary */
+    background-color: #6173c2; /* Background color */
+    padding: 0.25rem 0.75rem; /* Match padding */
+    border-radius: 0.5rem; /* Match border-radius */
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .filter-button:hover {
+    color: var(--purple); /* Text color on hover */
+    background-color: #fff; /* Background color on hover */
+  }
+  
+  /* Active state for filter button to keep it highlighted */
+  .filter-button.active {
+    background-color: #fff;
+    color: var(--purple);
+    border: 1px solid var(--purple);
+  }
+  
+.event-listings {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.event-card {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+  width: calc(33.333% - 1rem); /* 3 items per row with gap */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.event-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.event-card h3 {
+  color: var(--purple); /* Title color matches buttons */
+  margin-bottom: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .event-card {
+    width: calc(50% - 1rem); /* 2 items per row for smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .event-card {
+    width: 100%; /* 1 item per row for mobile screens */
+  }
+}

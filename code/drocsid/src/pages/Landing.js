@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
-import "./Landing.css";
+import "./Landing.css"; 
 import Faqs from "./Faqs";
-import { useAuth } from "../contexts/authContext";
+import { useAuth } from "../contexts/authContext"; // Adjust this path as necessary
+import { useNavigate } from 'react-router-dom';
+import { firestore } from '../firebase/firebase'; // Adjust this path as necessary
+import { collection, getDocs } from 'firebase/firestore';
 import { doSignOut } from "../firebase/auth";
-import { useNavigate } from "react-router-dom";
 
 const faqsList = [
   {
@@ -35,6 +37,30 @@ const faqsList = [
 const Landing = () => {
   const { userLoggedIn } = useAuth();
   const navigate = useNavigate();
+  const [allItems, setAllItems] = useState([]);
+  const [filteredItems, setFilteredItems] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const categories = ["All", "Concerts", "Sports", "Theater"];
+
+  useEffect(() => {
+    const fetchItems = async () => {
+      const querySnapshot = await getDocs(collection(firestore, "events"));
+      const itemsArray = querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setAllItems(itemsArray);
+    };
+
+    fetchItems().catch(console.error);
+  }, [userLoggedIn, navigate]);
+
+  useEffect(() => {
+    const filteredItems = allItems.filter(
+      (item) => selectedCategory === "All" || item.category === selectedCategory
+    );
+    setFilteredItems(filteredItems);
+  }, [selectedCategory, allItems]);
 
   useEffect(() => {
     // Navigate to login if user is not logged in
@@ -104,6 +130,33 @@ const Landing = () => {
       </section>
 
       <section className="info-section" data-testid="hero-section">
+
+      <div className="info-piece">
+          <div className="category-browsing">
+          <div className="category-filters">
+      {categories.map((category) => (
+        <button 
+          key={category} 
+          onClick={() => setSelectedCategory(category)}
+          className={`filter-button ${selectedCategory === category ? "active" : ""}`}
+        >
+          {category}
+        </button>
+      ))}
+    </div>
+  <div className="event-listings">
+    {filteredItems.map((event) => (
+      <div key={event.id} className="event-card">
+        <h3>{event.name}</h3>
+        <p>{event.description}</p>
+        {/* Event date can be included here if available */}
+      </div>
+    ))}
+  </div>
+  </div>
+</div>
+
+
         <div className="info-piece">
           <div className="info-text">
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
@@ -113,6 +166,7 @@ const Landing = () => {
             <img src="Saly-2.png" alt="" className="info-img"></img>
           </div>
         </div>
+
         <div className="info-piece">
           <div className="info-text">
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
@@ -122,6 +176,7 @@ const Landing = () => {
             <img src="Saly-31.png" alt="" className="info-img"></img>
           </div>
         </div>
+
         <div className="info-piece">
           <div className="info-text">
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
@@ -131,8 +186,9 @@ const Landing = () => {
             <img src="Saly-3.png" alt="" className="info-img"></img>
           </div>
         </div>
+        
       </section>
-      <Faqs faqsList={faqsList} />
+    <Faqs faqsList={faqsList} />
     </div>
   );
 };
