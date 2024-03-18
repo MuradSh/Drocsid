@@ -113,30 +113,34 @@ const Landing = () => {
         </div>
       </section>
 
-      <section className="category-browsing-section">
-        <div className="category-filters">
-          {categories.map((category) => (
-            <button 
-              key={category} 
-              onClick={() => setSelectedCategory(category)}
-              className={`filter-button ${selectedCategory === category ? "active" : ""}`}
-            >
-              {category}
-            </button>
-          ))}
-        </div>
-        <div className="event-listings">
-          {filteredItems.map((event) => (
-            <div key={event.id} className="event-card">
-              <h3>{event.name}</h3>
-              <p>{event.description}</p>
-              {/* Event date can be included here if available */}
-            </div>
-          ))}
-        </div>
-      </section>
-
       <section className="info-section" data-testid="hero-section">
+
+      <div className="info-piece">
+          <div className="category-browsing">
+          <div className="category-filters">
+      {categories.map((category) => (
+        <button 
+          key={category} 
+          onClick={() => setSelectedCategory(category)}
+          className={`filter-button ${selectedCategory === category ? "active" : ""}`}
+        >
+          {category}
+        </button>
+      ))}
+    </div>
+  <div className="event-listings">
+    {filteredItems.map((event) => (
+      <div key={event.id} className="event-card">
+        <h3>{event.name}</h3>
+        <p>{event.description}</p>
+        {/* Event date can be included here if available */}
+      </div>
+    ))}
+  </div>
+  </div>
+</div>
+
+
         <div className="info-piece">
           <div className="info-text">
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
@@ -146,6 +150,7 @@ const Landing = () => {
             <img src="Saly-2.png" alt="" className="info-img"></img>
           </div>
         </div>
+
         <div className="info-piece">
           <div className="info-text">
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
@@ -155,6 +160,7 @@ const Landing = () => {
             <img src="Saly-31.png" alt="" className="info-img"></img>
           </div>
         </div>
+
         <div className="info-piece">
           <div className="info-text">
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
@@ -164,7 +170,10 @@ const Landing = () => {
             <img src="Saly-3.png" alt="" className="info-img"></img>
           </div>
         </div>
+        
       </section>
+
+
     <Faqs faqsList={faqsList} />
     </div>
   );

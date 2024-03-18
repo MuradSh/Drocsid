@@ -241,6 +241,7 @@ img{
     column-gap: 5rem;
     border-radius: 1rem;
     margin: 0.5rem 0;
+    padding-bottom: 0.5rem;
 }
 
 .info-piece:nth-of-type(even){
@@ -269,10 +270,16 @@ img{
     transition: 0.4s ease-in-out;
 }
 
-* Category Browsing Section */
-.category-browsing-section {
-  padding: 2rem 0;
-  background-color: #f7f7f7; /* Light background to distinguish section */
+
+.category-browsing{
+    .category-browsing {
+        padding: 2rem 0;
+        background-color: #f7f7f7; /* Adjust this color to match the one in your image */
+        /* Add a max-width and center the container */
+        max-width: 1200px; /* or the width of your choice */
+        margin: auto;
+        margin-bottom: 2rem;
+      }
 }
 
 .category-filters {
@@ -281,23 +288,30 @@ img{
   flex-wrap: wrap;
   margin-bottom: 2rem;
 }
-
 .filter-button {
-  background-color: transparent;
-  border: 2px solid var(--purple); /* Use existing color variable */
-  color: var(--purple);
-  text-transform: uppercase;
-  padding: 0.5rem 1rem;
-  margin: 0.5rem;
-  cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-.filter-button:hover, .filter-button.active {
-  background-color: var(--purple); /* Matching the navbar color */
-  color: white;
-}
-
+    font-size: 1.5rem; /* Match font size */
+    margin: 1rem 0.5rem; /* Provide some space around the buttons */
+    border: 1px solid #fff; /* Match border style */
+    color: #fff; /* Text color set to white, adjust if necessary */
+    background-color: #6173c2; /* Background color */
+    padding: 0.25rem 0.75rem; /* Match padding */
+    border-radius: 0.5rem; /* Match border-radius */
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .filter-button:hover {
+    color: var(--purple); /* Text color on hover */
+    background-color: #fff; /* Background color on hover */
+  }
+  
+  /* Active state for filter button to keep it highlighted */
+  .filter-button.active {
+    background-color: #fff;
+    color: var(--purple);
+    border: 1px solid var(--purple);
+  }
+  
 .event-listings {
   display: flex;
   justify-content: center;
