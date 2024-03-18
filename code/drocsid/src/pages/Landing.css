@@ -241,7 +241,7 @@ img{
     column-gap: 5rem;
     border-radius: 1rem;
     margin: 0.5rem 0;
-    padding-bottom: 0.5rem;
+    padding-bottom: 1rem;
 }
 
 .info-piece:nth-of-type(even){
@@ -293,7 +293,7 @@ img{
     margin: 1rem 0.5rem; /* Provide some space around the buttons */
     border: 1px solid #fff; /* Match border style */
     color: #fff; /* Text color set to white, adjust if necessary */
-    background-color: #6173c2; /* Background color */
+    background-color:var(--purple); /* Background color */
     padding: 0.25rem 0.75rem; /* Match padding */
     border-radius: 0.5rem; /* Match border-radius */
     cursor: pointer;
