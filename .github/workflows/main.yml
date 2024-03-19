@@ -18,7 +18,7 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-        working-directory: /home/runner/work/Drocsid/code/drocsid/package.json
+        working-directory: Drocsid/code/drocsid/package.json
 
       - name: Run tests
         run: npm test
