@@ -31,33 +31,38 @@ const EventDetails = () => {
     return <div>Loading...</div>;
   }
 
-    return (
-      <div className="event-details-container">
-        <header className="event-details-header">
-          <h2>Event Name</h2>
-          {/* If you have an image, place it here */}
-        </header>
-        <div className="event-details-section">
-          <h3>Date & Time</h3>
-          <p>{/* Date and time info */}</p>
-        </div>
-        <div className="event-details-section">
-          <h3>Venue</h3>
-          <p>{/* Venue info */}</p>
-        </div>
-        <div className="event-details-section">
-          <h3>Pricing</h3>
-          <p>{/* Pricing info */}</p>
-        </div>
-        <div className="event-details-section">
-          <h3>Availability</h3>
-          <p>{/* Availability info */}</p>
-        </div>
-        <div className="center">
-          <button className="button">Purchase Tickets</button>
-        </div>
-      </div>
-    );
-  };
+  return (
+<div className="event-details-container">
+  <div className="event-details-header">
+    <h2>{eventDetails.name}</h2>
+  </div>
+  <div className="event-details-section">
+    <h3>Date</h3>
+    <p>{eventDetails.date}</p>
+  </div>
+  <div className="event-details-section">
+    <h3>Time</h3>
+    <p>{eventDetails.time}</p>
+  </div>
+  <div className="event-details-section">
+    <h3>Venue</h3>
+    <p>{eventDetails.venue}</p>
+  </div>
+  <div className="event-details-section">
+    <h3>Pricing</h3>
+    <p>{eventDetails.pricing}</p>
+  </div>
+  <div className="event-details-section">
+    <h3>Availability</h3>
+    <p>{eventDetails.availability}</p>
+  </div>
+  <div className="center">
+    {/* Assuming you have a button component or use a simple button */}
+    <button className="button">Purchase Tickets</button>
+  </div>
+</div>
+
+  );
+};
 
 export default EventDetails;
