@@ -136,7 +136,9 @@ img{
         flex-direction: row;
         justify-content: end;
         justify-self: end;
-        width: 675px;
+        width: 1000px;
+        color: #fff;
+        text-decoration: underline;
     }
 
     .navbar-nav{
@@ -150,7 +152,7 @@ img{
     }
 
     .nav-link{
-        padding: 0.5rem;
+        padding: 0rem;
         margin: 0 0.5rem;
         position: relative;
     }
@@ -311,6 +313,24 @@ img{
     color: var(--purple);
     border: 1px solid var(--purple);
   }
+
+  .sign-out-button {
+    background-color: transparent;
+    border: 2px solid #fff;
+    color: #fff;
+    padding: 10px 20px;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .sign-out-button:hover,
+  .sign-out-button.active {
+    background-color: #fff;
+    color: #0054db;
+  }
+  
+
   
 .event-listings {
   display: flex;
