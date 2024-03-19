@@ -3,9 +3,14 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { doSignInWithEmailAndPassword } from "../firebase/auth";
 import { useAuth } from "../contexts/authContext";
+import { getAnalytics, logEvent } from "firebase/analytics";
+
+
+const analytics = getAnalytics();
+logEvent(analytics, 'notification_received');
 
 const Login = () => {
-    const { userLoggedIn } = useAuth();
+  const { userLoggedIn } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -15,16 +20,18 @@ const Login = () => {
     event.preventDefault(); // Prevents the default form submission action
     try {
       await doSignInWithEmailAndPassword(email, password);
-      console.log("Login successful", { email }); 
+      sessionStorage.setItem("email", email);
+      sessionStorage.setItem("loginTime", new Date().getTime());
+      console.log("Login successful", { email });
       navigate("/landing"); // Redirect the user to the homepage after successful login
     } catch (error) {
-      console.error("Login failed", error); 
+      console.error("Login failed", error);
     }
   };
 
   // Navigates to sign up page
   const handleSignUpClick = () => {
-    navigate("/signup"); 
+    navigate("/signup");
   };
 
   return (
