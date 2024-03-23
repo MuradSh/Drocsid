@@ -31,7 +31,7 @@ function SignUp() {
   };
 
   return (
-    <div className="main">
+    <div className="main signupmain">
       <div className="signup">
         <form onSubmit={handleSubmit}>
           <label htmlFor="username" aria-hidden="true">

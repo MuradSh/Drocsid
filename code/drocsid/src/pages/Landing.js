@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./Landing.css"; 
+import "./Landing.css";
 import Faqs from "./Faqs";
 import { useAuth } from "../contexts/authContext"; // Adjust this path as necessary
 import { useNavigate } from 'react-router-dom';
@@ -41,6 +41,7 @@ const Landing = () => {
   const [filteredItems, setFilteredItems] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const categories = ["All", "Concerts", "Sports", "Theater"];
+
 
   useEffect(() => {
     const fetchItems = async () => {
@@ -131,30 +132,30 @@ const Landing = () => {
 
       <section className="info-section" data-testid="hero-section">
 
-      <div className="info-piece">
+        <div className="info-piece">
           <div className="category-browsing">
-          <div className="category-filters">
-      {categories.map((category) => (
-        <button 
-          key={category} 
-          onClick={() => setSelectedCategory(category)}
-          className={`filter-button ${selectedCategory === category ? "active" : ""}`}
-        >
-          {category}
-        </button>
-      ))}
-    </div>
-  <div className="event-listings">
-    {filteredItems.map((event) => (
-      <div key={event.id} className="event-card">
-        <h3>{event.name}</h3>
-        <p>{event.description}</p>
-        {/* Event date can be included here if available */}
-      </div>
-    ))}
-  </div>
-  </div>
-</div>
+            <div className="category-filters">
+              {categories.map((category) => (
+                <button
+                  key={category}
+                  onClick={() => setSelectedCategory(category)}
+                  className={`filter-button ${selectedCategory === category ? "active" : ""}`}
+                >
+                  {category}
+                </button>
+              ))}
+            </div>
+            <div className="event-listings">
+              {filteredItems.map((event) => (
+                <div key={event.id} className="event-card">
+                  <h3>{event.name}</h3>
+                  <p>{event.description}</p>
+                  {/* Event date can be included here if available */}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
 
 
         <div className="info-piece">
@@ -186,9 +187,9 @@ const Landing = () => {
             <img src="Saly-3.png" alt="" className="info-img"></img>
           </div>
         </div>
-        
+
       </section>
-    <Faqs faqsList={faqsList} />
+      <Faqs faqsList={faqsList} />
     </div>
   );
 };
