@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "./Landing.css";
 import Faqs from "./Faqs";
-import { useAuth } from "../contexts/authContext"; // Adjust this path as necessary
+import { useAuth } from "../contexts/authContext";
 import { useNavigate } from 'react-router-dom';
-import { firestore } from '../firebase/firebase'; // Adjust this path as necessary
+import { firestore } from '../firebase/firebase';
 import { collection, getDocs } from 'firebase/firestore';
 import { doSignOut } from "../firebase/auth";
 
@@ -79,6 +79,10 @@ const Landing = () => {
     }
   };
 
+  const handleEventClick = (eventId) => {
+    navigate(`/event/${eventId}`); // Navigate to event details page with the event's ID
+  };
+
   return (
     <div>
       <nav className="navbar" id="navMenu" data-testid="navMenu">
@@ -134,28 +138,28 @@ const Landing = () => {
 
         <div className="info-piece">
           <div className="category-browsing">
-            <div className="category-filters">
-              {categories.map((category) => (
-                <button
-                  key={category}
-                  onClick={() => setSelectedCategory(category)}
-                  className={`filter-button ${selectedCategory === category ? "active" : ""}`}
-                >
-                  {category}
-                </button>
-              ))}
-            </div>
-            <div className="event-listings">
-              {filteredItems.map((event) => (
-                <div key={event.id} className="event-card">
-                  <h3>{event.name}</h3>
-                  <p>{event.description}</p>
-                  {/* Event date can be included here if available */}
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+          <div className="category-filters">
+      {categories.map((category) => (
+        <button 
+          key={category} 
+          onClick={() => setSelectedCategory(category)}
+          className={`filter-button ${selectedCategory === category ? "active" : ""}`}
+        >
+          {category}
+        </button>
+      ))}
+    </div>
+  <div className="event-listings">
+    {filteredItems.map((event) => (
+    <div key={event.id} className="event-card" onClick={() => handleEventClick(event.id)}>
+        <h3>{event.name}</h3>
+        <p>{event.description}</p>
+        {/* Event date can be included here if available */}
+      </div>
+    ))}
+  </div>
+  </div>
+</div>
 
 
         <div className="info-piece">
