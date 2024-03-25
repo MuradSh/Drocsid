@@ -96,10 +96,10 @@ const Landing = () => {
           <div className="nav-links" id="navbarNav">
             <div className="navbar-nav nav-primary">
               <a className="nav-link active-link" href="/landing">
-                Option 1
+                Profile
               </a>
-              <a className="nav-link" href="/landing">
-                Option 2
+              <a className="nav-link" href="/userProfile">
+                Bookings
               </a>
               <a className="nav-link">
                 {userLoggedIn && (

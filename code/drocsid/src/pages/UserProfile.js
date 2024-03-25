@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useAuth } from "../contexts/authContext"; // Ensure this is correctly imported
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { firestore } from '../firebase/firebase';
+import './UserProfile.css'
 
 const UserProfile = () => {
   const { currentUser } = useAuth();
@@ -23,7 +24,7 @@ const UserProfile = () => {
   if (!currentUser) return <div>Please login to see your bookings.</div>;
 
   return (
-    <div>
+    <div className="user-profile-container">
       <h2>Your Bookings</h2>
       {bookings.length > 0 ? (
         <ul>
