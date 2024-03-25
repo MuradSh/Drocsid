@@ -4,6 +4,7 @@ import { collection, doc, runTransaction } from 'firebase/firestore';
 import { firestore } from '../firebase/firebase';
 import './BookingPage.css'; // Ensure you have the CSS file for styling
 import { getAuth } from 'firebase/auth';
+import '@testing-library/jest-dom';
 
 
 const BookingPage = () => {
