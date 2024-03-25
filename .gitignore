@@ -131,3 +131,4 @@ dist
 
 
 .DS_Store
+code/drocsid/src/__tests__/eventdetails.test.js
