@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './BookingSuccessPage.css'
 
 const BookingSuccessPage = () => {
   const navigate = useNavigate();
@@ -11,7 +12,7 @@ const BookingSuccessPage = () => {
   }, [navigate]);
 
   return (
-    <div>
+    <div className="success-container">
       <h1>Booking Successful!</h1>
       <p>Your tickets have been booked. You will be redirected shortly...</p>
     </div>

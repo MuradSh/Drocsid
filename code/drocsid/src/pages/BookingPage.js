@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { doc, runTransaction } from 'firebase/firestore';
+import { collection, doc, runTransaction } from 'firebase/firestore';
 import { firestore } from '../firebase/firebase';
 import './BookingPage.css'; // Ensure you have the CSS file for styling
+import { getAuth } from 'firebase/auth';
+
 
 const BookingPage = () => {
   const { eventId } = useParams();
@@ -11,13 +13,20 @@ const BookingPage = () => {
 
   const handleBookingSubmit = async (e) => {
     e.preventDefault();
-    // Dummy booking logic for demonstration
-
-    // On success, navigate to a confirmation page or show a success message
-    navigate('/booking-success'); // Example redirect to a success page
-
+  
+    // Assuming you have access to currentUser's UID
+    const auth = getAuth();
+    const currentUser = auth.currentUser;
+    const userId = currentUser ? currentUser.uid : null;
+  
+    if (!userId) {
+      console.error("User not logged in");
+      return;
+    }
+  
     const eventRef = doc(firestore, "events", eventId);
-    // Assume you have a field "availability" in your event document
+  
+    // Update event's available tickets and create a booking record
     await runTransaction(firestore, async (transaction) => {
       const eventDoc = await transaction.get(eventRef);
       if (!eventDoc.exists()) {
@@ -25,9 +34,30 @@ const BookingPage = () => {
       }
   
       const newAvailability = eventDoc.data().availability - ticketQuantity;
-      transaction.update(eventRef, { availability: newAvailability });
+  
+      // Only proceed if there are enough tickets available
+      if (newAvailability >= 0) {
+        transaction.update(eventRef, { availability: newAvailability });
+        // Create a new booking record
+        const bookingRef = doc(collection(firestore, "bookings"));
+        transaction.set(bookingRef, {
+          userId, // Ensure this is just a string
+          eventId,
+          eventName: eventDoc.data().name, // Assuming event document has a 'name' field
+          tickets: ticketQuantity,
+          bookingDate: new Date(), // Current date and time of the booking
+          status: "confirmed"
+        });
+      } else {
+        // Handle the case where not enough tickets are available
+        throw new Error("Not enough tickets available.");
+      }
     });
+  
+    navigate('/booking-success');
   };
+  
+  
 
   return (
     <div className="booking-form-container">
