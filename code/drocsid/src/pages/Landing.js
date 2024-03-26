@@ -158,7 +158,6 @@ const Landing = () => {
                 >
                   <h3>{event.name}</h3>
                   <p>{event.description}</p>
-                  {/* Event date can be included here if available */}
                 </div>
               ))}
             </div>
