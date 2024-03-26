@@ -44,7 +44,7 @@ describe('Landing Page', () => {
     // const signOutButton = getByText('Sign Out');
     // fireEvent.click(signOutButton);
     
-    // // Since doSignOut is a promise, you need to wait for it to resolve
+    // // for doSignOut need to wait for it to resolve
     // await waitFor(() => {
     //   expect(jest.mock('../firebase/auth').doSignOut).toHaveBeenCalled();
     // });
