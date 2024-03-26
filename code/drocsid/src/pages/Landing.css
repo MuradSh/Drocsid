@@ -231,7 +231,6 @@ img {
   position: relative;
   display: flex;
   flex-direction: row-reverse;
-  background-color: var(--purple);
   height: fit-content;
   width: 100vw;
   align-items: center;
@@ -363,3 +362,37 @@ img {
     width: 100%;
   }
 }
+
+/* Search Input */
+
+.search-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+  width: 100%;
+}
+
+.search-input {
+  width: 50%;
+  padding: 10px;
+  max-width: 600px;
+}
+
+.search-background {
+    background-color: var(--purple);
+}
+
+.search-piece {
+    position: relative;
+    display: flex;
+    flex-direction: row-reverse;
+    height: fit-content;
+    width: 100vw;
+    align-items: center;
+    justify-content: center;
+    column-gap: 5rem;
+    border-radius: 1rem;
+    margin: 0.5rem 0;
+    padding-bottom: 1rem;
+  }
