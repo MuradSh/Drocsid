@@ -39,6 +39,7 @@ const Landing = () => {
   const navigate = useNavigate();
   const [allItems, setAllItems] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState("All");
   const categories = ["All", "Concerts", "Sports", "Theater"];
 
@@ -50,17 +51,23 @@ const Landing = () => {
         ...doc.data(),
       }));
       setAllItems(itemsArray);
+      setFilteredItems(itemsArray);
     };
 
     fetchItems().catch(console.error);
   }, [userLoggedIn, navigate]);
 
   useEffect(() => {
-    const filteredItems = allItems.filter(
-      (item) => selectedCategory === "All" || item.category === selectedCategory
-    );
-    setFilteredItems(filteredItems);
-  }, [selectedCategory, allItems]);
+    const filtered = allItems.filter(item => {
+      return (selectedCategory === "All" || item.category === selectedCategory) &&
+        item.name.toLowerCase().includes(searchTerm.toLowerCase());
+    });
+    setFilteredItems(filtered);
+  }, [searchTerm, selectedCategory, allItems]);
+
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
 
   useEffect(() => {
     // Navigate to login if user is not logged in
