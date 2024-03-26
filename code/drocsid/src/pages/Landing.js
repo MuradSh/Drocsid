@@ -39,7 +39,7 @@ const Landing = () => {
   const navigate = useNavigate();
   const [allItems, setAllItems] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const categories = ["All", "Concerts", "Sports", "Theater"];
 
@@ -58,9 +58,11 @@ const Landing = () => {
   }, [userLoggedIn, navigate]);
 
   useEffect(() => {
-    const filtered = allItems.filter(item => {
-      return (selectedCategory === "All" || item.category === selectedCategory) &&
-        item.name.toLowerCase().includes(searchTerm.toLowerCase());
+    const filtered = allItems.filter((item) => {
+      return (
+        (selectedCategory === "All" || item.category === selectedCategory) &&
+        item.name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
     });
     setFilteredItems(filtered);
   }, [searchTerm, selectedCategory, allItems]);
@@ -141,32 +143,44 @@ const Landing = () => {
       </section>
 
       <section className="info-section" data-testid="hero-section">
-        <div className="info-piece">
-          <div className="category-browsing">
-            <div className="category-filters">
-              {categories.map((category) => (
-                <button
-                  key={category}
-                  onClick={() => setSelectedCategory(category)}
-                  className={`filter-button ${
-                    selectedCategory === category ? "active" : ""
-                  }`}
-                >
-                  {category}
-                </button>
-              ))}
-            </div>
-            <div className="event-listings">
-              {filteredItems.map((event) => (
-                <div
-                  key={event.id}
-                  className="event-card"
-                  onClick={() => handleEventClick(event.id)}
-                >
-                  <h3>{event.name}</h3>
-                  <p>{event.description}</p>
-                </div>
-              ))}
+        <div className="search-background">
+          <div className="search-container">
+            <input
+              type="text"
+              className="search-input"
+              placeholder="Search events"
+              value={searchTerm}
+              onChange={handleSearchChange}
+            />
+          </div>
+
+          <div className="search-piece">
+            <div className="category-browsing">
+              <div className="category-filters">
+                {categories.map((category) => (
+                  <button
+                    key={category}
+                    onClick={() => setSelectedCategory(category)}
+                    className={`filter-button ${
+                      selectedCategory === category ? "active" : ""
+                    }`}
+                  >
+                    {category}
+                  </button>
+                ))}
+              </div>
+              <div className="event-listings">
+                {filteredItems.map((event) => (
+                  <div
+                    key={event.id}
+                    className="event-card"
+                    onClick={() => handleEventClick(event.id)}
+                  >
+                    <h3>{event.name}</h3>
+                    <p>{event.description}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
