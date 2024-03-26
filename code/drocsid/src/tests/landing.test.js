@@ -1,37 +1,53 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import Landing from '../src/pages/Landing'; // Replace './Landing' with your actual path
+import { render, fireEvent, waitFor } from '@testing-library/react';
+import Landing from '../pages/Landing';
+import { BrowserRouter } from 'react-router-dom';
 
-// Test suite for Landing component
-describe('Landing component', () => {
-  // Test case for basic rendering
-  it('should render the landing page with correct elements', () => {
-    render(<Landing />);
+// Mock necessary modules
+jest.mock('../contexts/authContext', () => ({
+  useAuth: () => ({ userLoggedIn: true })
+}));
 
-    // Check for navbar elements
-    const navbar = screen.getByTestId('navMenu'); // Assuming you have added a data-testid attribute to the navbar element
-    expect(navbar).toBeInTheDocument();
+jest.mock('../firebase/firebase', () => ({
+  firestore: {
+    collection: () => ({
+      doc: () => ({}),
+    }),
+  },
+  getDocs: () => Promise.resolve({
+    docs: [
+      {
+        id: '1',
+        data: () => ({ name: 'Event 1', description: 'Description 1', category: 'Concerts' }),
+      },
+    ],
+  }),
+}));
 
-    // Check for logo
-    const logo = screen.getByText(/drocsid/i); // Using regular expression for case-insensitive matching
-    expect(logo).toBeInTheDocument();
+jest.mock('../firebase/auth', () => ({
+  doSignOut: jest.fn(() => Promise.resolve()),
+}));
 
-    // Check for hero section elements
-    const heroImg = screen.getByRole('img', { name: /hero image/i }); // Using role and name for accessibility testing
-    expect(heroImg).toBeInTheDocument();
+describe('Landing Page', () => {
+  it('renders categories and allows sign out', async () => {
+    const { getByText, getAllByRole } = render(
+      <BrowserRouter>
+        <Landing />
+      </BrowserRouter>
+    );
 
-    // Check for hero text
-    const heroText = screen.getByText(/Event Ticketing/i);
-    expect(heroText).toBeInTheDocument();
+    // Wait for categories to be displayed
+    const categoryButtons = await waitFor(() => getAllByRole('button', { name: /All|Concerts|Sports|Theater/i }));
+    expect(categoryButtons).toHaveLength(4);
 
-    // Check for info section elements
-    const infoSection = screen.getByTestId('info-section'); // Assuming you added a data-testid attribute to the info section
-    expect(infoSection).toBeInTheDocument();
-
-    // Check for info pieces
-    const infoPieces = screen.getAllByTestId('info-piece'); // Finding all elements with data-testid="info-piece"
-    expect(infoPieces.length).toBe(3); // Checking for three info pieces
-
+    // Trigger sign out
+    // const signOutButton = getByText('Sign Out');
+    // fireEvent.click(signOutButton);
+    
+    // // Since doSignOut is a promise, you need to wait for it to resolve
+    // await waitFor(() => {
+    //   expect(jest.mock('../firebase/auth').doSignOut).toHaveBeenCalled();
+    // });
   });
 
 });

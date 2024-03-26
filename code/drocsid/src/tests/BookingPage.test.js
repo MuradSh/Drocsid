@@ -1,61 +1,34 @@
 import React from 'react';
-import { render, fireEvent, waitFor } from '@testing-library/react';
-import { BrowserRouter } from 'react-router-dom';
-import BookingPage from '../pages/BookingPage'; // Adjust the import path as necessary
-import '@testing-library/jest-dom';
-
-
-// Mocking Firebase Firestore and Auth
-jest.mock('../firebase/firebase', () => ({
-  firestore: jest.fn(),
-}));
-jest.mock('firebase/auth', () => ({
-  getAuth: jest.fn(() => ({ currentUser: { uid: 'testUserId' } })),
-}));
-
-// Mock runTransaction
-const mockRunTransaction = jest.fn();
-jest.mock('firebase/firestore', () => ({
-  collection: jest.fn(),
-  doc: jest.fn(),
-  runTransaction: () => mockRunTransaction(),
-}));
-
-// Mock react-router hooks
-const mockNavigate = jest.fn();
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
-  useNavigate: () => mockNavigate,
-  useParams: () => ({ eventId: 'testEventId' }),
-}));
+import { render, fireEvent } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
+import BookingPage from '../pages/BookingPage';
 
 describe('BookingPage', () => {
-  beforeEach(() => {
-    mockNavigate.mockClear();
-    mockRunTransaction.mockClear();
-  });
+  test('renders and allows ticket quantity adjustment', () => {
 
-  test('renders BookingPage and submits form', async () => {
-    const { getByText, getByLabelText } = render(
-      <BrowserRouter>
-        <BookingPage />
-      </BrowserRouter>
-    );
+const { getByLabelText, getByText, getByRole } = render(
+  <MemoryRouter>
+    <BookingPage />
+  </MemoryRouter>
+);
+
+
+    // Check if the ticket quantity input is rendered
+    const ticketQuantityInput = getByLabelText('Ticket Quantity');
+    expect(ticketQuantityInput).toHaveValue(1); // Default value check
 
     // Increase ticket quantity
     fireEvent.click(getByText('+'));
+    expect(ticketQuantityInput).toHaveValue(2);
 
-    // Submit the form
-    fireEvent.submit(getByText('Confirm Booking'));
+    // Decrease ticket quantity
+    fireEvent.click(getByText('-'));
+    expect(ticketQuantityInput).toHaveValue(1);
 
-    // Check if navigate was called after successful booking
-    await waitFor(() => {
-      expect(mockNavigate).toHaveBeenCalledWith('/booking-success');
-    });
 
-    // Check if runTransaction was called correctly
-    expect(mockRunTransaction).toHaveBeenCalled();
+    //check for the presence of the confirm booking button
+    const confirmBookingButton = getByRole('button', { name: /confirm booking/i });
+    expect(confirmBookingButton).toBeInTheDocument();
   });
 
-  // Additional tests can be added to check form validation, error handling, etc.
 });

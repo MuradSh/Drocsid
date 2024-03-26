@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { collection, doc, runTransaction } from 'firebase/firestore';
 import { firestore } from '../firebase/firebase';
-import './BookingPage.css'; // Ensure you have the CSS file for styling
+import './BookingPage.css'; 
 import { getAuth } from 'firebase/auth';
 import '@testing-library/jest-dom';
 
@@ -15,7 +15,7 @@ const BookingPage = () => {
   const handleBookingSubmit = async (e) => {
     e.preventDefault();
   
-    // Assuming you have access to currentUser's UID
+ 
     const auth = getAuth();
     const currentUser = auth.currentUser;
     const userId = currentUser ? currentUser.uid : null;
@@ -44,7 +44,7 @@ const BookingPage = () => {
         transaction.set(bookingRef, {
           userId, // Ensure this is just a string
           eventId,
-          eventName: eventDoc.data().name, // Assuming event document has a 'name' field
+          eventName: eventDoc.data().name, 
           tickets: ticketQuantity,
           bookingDate: new Date(), // Current date and time of the booking
           status: "confirmed"
@@ -66,6 +66,7 @@ const BookingPage = () => {
       <form onSubmit={handleBookingSubmit}>
         <div className="ticket-quantity-section">
           <div className="number-input-container">
+          <label htmlFor="ticketQuantity">Ticket Quantity</label>
             <input
               id="ticketQuantity"
               type="number"
