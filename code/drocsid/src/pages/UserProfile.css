@@ -1,0 +1,47 @@
+/* UserProfile.css */
+.user-profile-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: #333;
+}
+
+.user-profile-container h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: var(--purple);
+    margin-bottom: 2rem;
+}
+
+.user-profile-container ul {
+    list-style-type: none;
+    padding: 0;
+    color:var(--purple);
+}
+
+.user-profile-container li {
+    background-color: #f7f7f7;
+    margin: 0.5rem 0;
+    padding: 1rem;
+    border-radius: 4px;
+}
+
+.user-profile-container p {
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+/* Add responsiveness for smaller screens */
+@media (max-width: 768px) {
+    .user-profile-container {
+        padding: 1rem;
+        margin: 1rem;
+    }
+
+    .user-profile-container h2 {
+        font-size: 2rem;
+    }
+}
