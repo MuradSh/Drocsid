@@ -377,22 +377,32 @@ img {
   width: 50%;
   padding: 10px;
   max-width: 600px;
+  font-size: 20px;
+  color: #4357ad;
+  font-weight: bold;
+  background-color: #ffffff;
+}
+
+.search-input::placeholder {
+  font-size: 20px; 
+  color: #4357ad; 
+  font-weight: bold;
 }
 
 .search-background {
-    background-color: var(--purple);
+  background-color: var(--purple);
 }
 
 .search-piece {
-    position: relative;
-    display: flex;
-    flex-direction: row-reverse;
-    height: fit-content;
-    width: 100vw;
-    align-items: center;
-    justify-content: center;
-    column-gap: 5rem;
-    border-radius: 1rem;
-    margin: 0.5rem 0;
-    padding-bottom: 1rem;
-  }
+  position: relative;
+  display: flex;
+  flex-direction: row-reverse;
+  height: fit-content;
+  width: 100vw;
+  align-items: center;
+  justify-content: center;
+  column-gap: 5rem;
+  border-radius: 1rem;
+  margin: 0.5rem 0;
+  padding-bottom: 1rem;
+}
