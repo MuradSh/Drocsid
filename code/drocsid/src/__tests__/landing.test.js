@@ -1,37 +1,78 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import Landing from '../src/pages/Landing'; // Replace './Landing' with your actual path
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import '@testing-library/jest-dom';
+import { BrowserRouter } from 'react-router-dom';
+import Landing from '../pages/Landing';
 
-// Test suite for Landing component
-describe('Landing component', () => {
-  // Test case for basic rendering
-  it('should render the landing page with correct elements', () => {
-    render(<Landing />);
+// Mock the firebase auth and firestore
+jest.mock('../firebase/auth', () => ({
+    doSignInWithEmailAndPassword: jest.fn(() => Promise.resolve({ user: 'testUser' })),
+}));
 
-    // Check for navbar elements
-    const navbar = screen.getByTestId('navMenu'); // Assuming you have added a data-testid attribute to the navbar element
-    expect(navbar).toBeInTheDocument();
+jest.mock('../firebase/firebase', () => ({
+    firestore: jest.fn(),
+    collection: jest.fn(),
+    getDocs: jest.fn(),
+}));
 
-    // Check for logo
-    const logo = screen.getByText(/drocsid/i); // Using regular expression for case-insensitive matching
-    expect(logo).toBeInTheDocument();
+// Mock the useAuth context and react-router-dom's navigate function
+jest.mock('../contexts/authContext', () => ({
+    useAuth: () => ({
+        userLoggedIn: true,
+    }),
+}));
 
-    // Check for hero section elements
-    const heroImg = screen.getByRole('img', { name: /hero image/i }); // Using role and name for accessibility testing
-    expect(heroImg).toBeInTheDocument();
+jest.mock('react-router-dom', () => ({
+    ...jest.requireActual('react-router-dom'),
+    useNavigate: () => jest.fn(),
+}));
 
-    // Check for hero text
-    const heroText = screen.getByText(/Event Ticketing/i);
-    expect(heroText).toBeInTheDocument();
+// Prepare mock events data
+const mockEvents = [
+    { id: '1', name: 'Concert Event', category: 'Concerts', description: 'A great concert' },
+    { id: '2', name: 'Sports Event', category: 'Sports', description: 'An exciting match' }
+];
 
-    // Check for info section elements
-    const infoSection = screen.getByTestId('info-section'); // Assuming you added a data-testid attribute to the info section
-    expect(infoSection).toBeInTheDocument();
+describe('Landing Page', () => {
+    beforeEach(() => {
+        jest.clearAllMocks();
 
-    // Check for info pieces
-    const infoPieces = screen.getAllByTestId('info-piece'); // Finding all elements with data-testid="info-piece"
-    expect(infoPieces.length).toBe(3); // Checking for three info pieces
+        require('../firebase/firebase').getDocs.mockResolvedValue({
+            docs: mockEvents.map(event => ({
+                id: event.id,
+                data: () => event
+            }))
+        });
+    });
 
-  });
+    test('renders the search input and category buttons', async () => {
+        render(<Landing />, { wrapper: BrowserRouter });
 
+        expect(screen.getByPlaceholderText('Search events')).toBeInTheDocument();
+        expect(await screen.findByText('All')).toBeInTheDocument();
+        expect(await screen.findByText('Concerts')).toBeInTheDocument();
+        expect(await screen.findByText('Sports')).toBeInTheDocument();
+        expect(await screen.findByText('Theater')).toBeInTheDocument();
+    });
+
+    test('allows typing in the search box', () => {
+        render(<Landing />, { wrapper: BrowserRouter });
+
+        const searchInput = screen.getByPlaceholderText('Search events');
+        fireEvent.change(searchInput, { target: { value: 'Concert' } });
+
+        expect(searchInput.value).toBe('Concert');
+    });
+
+    // test('displays events based on search criteria', async () => {
+    //     render(<Landing />, { wrapper: BrowserRouter });
+        
+    //     const searchInput = screen.getByPlaceholderText('Search events');
+    //     fireEvent.change(searchInput, { target: { value: 't' } });
+
+    //     // Wait for the component to update based on the search input
+    //     await waitFor(() => {
+    //         expect(screen.getByText(/t/i)).toBeInTheDocument();
+    //     });
+    // });
 });
