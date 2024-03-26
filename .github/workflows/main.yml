@@ -22,5 +22,6 @@ jobs:
 
       - name: Run tests
         run: 
-          cd code/drocsid
+          cd code
+          cd drocsid
           npm test
