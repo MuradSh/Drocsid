@@ -2,6 +2,8 @@ import "./Signup.css";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { doCreateUserWithEmailAndPassword } from "../firebase/auth";
+import '@testing-library/jest-dom';
+
 
 function SignUp() {
   const [email, setEmail] = useState("");

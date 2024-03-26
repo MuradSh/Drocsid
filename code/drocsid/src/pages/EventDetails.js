@@ -9,6 +9,7 @@ import { doSignOut } from "../firebase/auth";
 import "./EventDetails.css"; 
 
 const EventDetails = () => {
+  const navigate = useNavigate();
   const { eventId } = useParams();
   const [eventDetails, setEventDetails] = useState(null);
 
@@ -54,12 +55,16 @@ const EventDetails = () => {
   </div>
   <div className="event-details-section">
     <h3>Availability</h3>
-    <p>{eventDetails.availability}</p>
+    <p>{eventDetails.availability} tickets</p>
   </div>
   <div className="center">
-    {/* Assuming you have a button component or use a simple button */}
-    <button className="button">Purchase Tickets</button>
-  </div>
+  <button 
+    className="button" 
+    onClick={() => navigate(`/book/${eventId}`)}
+  >
+    Purchase Tickets
+  </button>
+</div>
 </div>
 
   );
