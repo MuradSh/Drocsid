@@ -3,10 +3,6 @@ import { useAuth } from "../contexts/authContext"; // Ensure this is correctly i
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { firestore } from '../firebase/firebase';
 import './UserProfile.css'
-import { useAuth } from "../contexts/authContext";
-import { collection, query, where, getDocs } from 'firebase/firestore';
-import { firestore } from '../firebase/firebase';
-
 const UserProfile = () => {
   const { currentUser } = useAuth();
   const [bookings, setBookings] = useState([]);
