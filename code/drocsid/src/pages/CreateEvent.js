@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { firestore, auth } from "../firebase/firebase";
 import { addDoc, collection } from 'firebase/firestore';
-import './CreateEvent.css'; // Ensure this path matches the location of your CSS file
+import './CreateEvent.css';
 import { useNavigate } from 'react-router-dom'
 
 const CreateEvent = () => {

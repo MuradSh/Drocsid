@@ -6,13 +6,12 @@ import './EventStatusPage.css';
 
 const EventStatusPage = () => {
     const [events, setEvents] = useState([]);
-    const { currentUser } = useAuth(); // Assuming you have a context providing user info
-
+    const { currentUser } = useAuth();
     useEffect(() => {
         const fetchEvents = async () => {
             if (!currentUser) return;
 
-            // Assuming 'organizerId' field links events to users. Adjust as necessary.
+            // 'organizerId' field links events to users.
             const q = query(collection(firestore, "events"), where("organizerId", "==", currentUser.uid));
             const querySnapshot = await getDocs(q);
             const fetchedEvents = querySnapshot.docs.map(doc => ({
