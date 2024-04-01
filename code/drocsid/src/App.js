@@ -6,7 +6,10 @@ import Landing from "./pages/Landing";
 import Admin from "./pages/admin/admin";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./contexts/authContext";
-import EventDetails from './pages/EventDetails'; // Import your event details component
+import EventDetails from './pages/EventDetails';
+import BookingPage from './pages/BookingPage';
+import BookingSuccessPage from './pages/BookingSuccessPage';
+import UserProfile from "./pages/UserProfile";
 
 function App() {
   return (
@@ -18,6 +21,9 @@ function App() {
           <Route path="/landing" element={<Landing />} />
           <Route path="/event/:eventId" element={<EventDetails />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/book/:eventId" element={<BookingPage />} />
+          <Route path="/booking-success" element={<BookingSuccessPage />} />
+          <Route path="/userprofile" element={<UserProfile/>} />
         </Routes>
       </AuthProvider>
     </Router>
