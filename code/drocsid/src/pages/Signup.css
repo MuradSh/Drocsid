@@ -43,7 +43,7 @@ label {
   font-size: 2.3em;
   justify-content: center;
   display: flex;
-  margin: 60px;
+  margin: 20px;
   font-weight: bold;
   cursor: pointer;
   transition: 0.5s ease-in-out;
@@ -55,7 +55,7 @@ input {
   background: #e0dede;
   justify-content: center;
   display: flex;
-  margin: 20px auto;
+  margin: 10px auto;
   padding: 10px;
   border: none;
   outline: none;
@@ -99,11 +99,11 @@ button:hover {
 .forgotPasswordSwitch,
 .signInSwitch {
   cursor: pointer;
-  padding-top: 50px;
+  padding-top: 0px;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 20px;
+  margin-top: 0px;
   color: #ede;
 }
 
