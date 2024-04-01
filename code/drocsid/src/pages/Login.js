@@ -4,8 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { doSignInWithEmailAndPassword } from "../firebase/auth";
 import { useAuth } from "../contexts/authContext";
 import { getAnalytics, logEvent } from "firebase/analytics";
-import '@testing-library/jest-dom';
-
 
 
 const analytics = getAnalytics();
