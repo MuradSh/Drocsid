@@ -109,10 +109,10 @@ const Landing = () => {
                 email == "admin@gmail.com" ? <a className="nav-link" href="/admin">Admin</a> : null
               }
               <a className="nav-link active-link" href="/landing">
-                Option 1
+                Profile
               </a>
-              <a className="nav-link" href="/landing">
-                Option 2
+              <a className="nav-link" href="/userProfile">
+                Bookings
               </a>
               <a className="nav-link">
                 {userLoggedIn && (
