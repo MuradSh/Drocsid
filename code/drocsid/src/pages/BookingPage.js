@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { collection, doc, runTransaction } from 'firebase/firestore';
 import { firestore } from '../firebase/firebase';
-import './BookingPage.css';
+import './BookingPage.css'; 
 import { getAuth } from 'firebase/auth';
 
 
@@ -14,7 +14,7 @@ const BookingPage = () => {
   const handleBookingSubmit = async (e) => {
     e.preventDefault();
   
-    // Assuming you have access to currentUser's UID
+ 
     const auth = getAuth();
     const currentUser = auth.currentUser;
     const userId = currentUser ? currentUser.uid : null;
@@ -65,6 +65,7 @@ const BookingPage = () => {
       <form onSubmit={handleBookingSubmit}>
         <div className="ticket-quantity-section">
           <div className="number-input-container">
+          <label htmlFor="ticketQuantity">Ticket Quantity</label>
             <input
               id="ticketQuantity"
               type="number"
@@ -83,7 +84,7 @@ const BookingPage = () => {
               +
             </button>
             <button 
-              type="button" // Prevent form submission for the decrement button
+              type="button" // Similarly, prevent form submission for the decrement button
               className="decrement-btn" 
               onClick={(e) => {
                 e.preventDefault();
