@@ -1,42 +1,42 @@
 
 .event-details-container {
-    max-width: 800px;
-    margin: 2rem auto;
+    max-width: 800px; /* Limits the width of the container for readability */
+    margin: 2rem auto; /* Centers the container and adds vertical spacing */
     padding: 2rem;
-    background: #ffffff;
-    border-radius: 8px; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-    color: #333;
+    background: #ffffff; /* A light background for the content */
+    border-radius: 8px; /* Slightly rounded corners for a modern look */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    color: #333; /* Dark color for text for readability */
   }
   
   .event-details-header {
     margin-bottom: 1.5rem;
-    text-align: center;
+    text-align: center; /* Center the event title and other header elements */
   }
   
   .event-details-header h2 {
     margin: 0;
-    font-size: 2.5rem;
-    color: var(--purple);
+    font-size: 2.5rem; /* Large font size for the event title */
+    color: var(--purple); /* Use the primary color for the event title */
   }
   
   .event-details-section {
-    margin-bottom: 1rem;
+    margin-bottom: 1rem; /* Space out the details sections */
   }
   
   .event-details-section h3 {
     font-size: 1.8rem;
     margin-bottom: 0.5rem;
-    color: var(--purple);
+    color: var(--purple); /* Style section headings with the primary color */
   }
   
   .event-details-section p {
     font-size: 1rem;
-    line-height: 1.6;
-    margin: 0;
+    line-height: 1.6; /* Space out the lines a bit for readability */
+    margin: 0; /* Remove default margins */
   }
   
- 
+  /* This could be a separate button component CSS if you have one */
   .button {
     display: inline-block;
     padding: 0.75rem 1.5rem;
@@ -58,12 +58,12 @@
     border:  2px solid var(--purple);
   }
   
- 
+  /* Utility class for aligning items to the center */
   .center {
     text-align: center;
   }
   
- 
+  /* Add responsiveness to the layout */
   @media (max-width: 768px) {
     .event-details-container {
       padding: 1rem;

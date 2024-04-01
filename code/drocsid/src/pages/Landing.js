@@ -6,8 +6,6 @@ import { useNavigate } from "react-router-dom";
 import { firestore } from "../firebase/firebase";
 import { collection, getDocs } from "firebase/firestore";
 import { doSignOut } from "../firebase/auth";
-import '@testing-library/jest-dom';
-
 
 const faqsList = [
   {
