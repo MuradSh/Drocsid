@@ -1,16 +1,20 @@
 body {
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   min-height: 100vh;
   font-family: "Jost", sans-serif;
   background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
 }
 
+#root {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .main {
   width: 350px;
+  margin-top: 120px;
   height: 500px;
   background: red;
   overflow: hidden;

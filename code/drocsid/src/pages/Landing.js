@@ -41,7 +41,7 @@ const Landing = () => {
   const [filteredItems, setFilteredItems] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const categories = ["All", "Concerts", "Sports", "Theater"];
-
+  const [email, setEmail] = useState("");
 
   useEffect(() => {
     const fetchItems = async () => {
@@ -51,6 +51,7 @@ const Landing = () => {
         ...doc.data(),
       }));
       setAllItems(itemsArray);
+      setEmail(sessionStorage.getItem("email"));
     };
 
     fetchItems().catch(console.error);
@@ -95,6 +96,9 @@ const Landing = () => {
 
           <div className="nav-links" id="navbarNav">
             <div className="navbar-nav nav-primary">
+              {
+                email == "admin@gmail.com" ? <a className="nav-link" href="/admin">Admin</a> : null
+              }
               <a className="nav-link active-link" href="/landing">
                 Option 1
               </a>

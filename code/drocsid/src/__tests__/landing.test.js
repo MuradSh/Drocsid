@@ -32,6 +32,10 @@ describe('Landing component', () => {
     const infoPieces = screen.getAllByTestId('info-piece'); // Finding all elements with data-testid="info-piece"
     expect(infoPieces.length).toBe(3); // Checking for three info pieces
 
+    // Check for hero text
+    const adminPanel = screen.getByText(/Event Ticketing/i);
+    expect(adminPanel).not.toBeInTheDocument
+
   });
 
 });

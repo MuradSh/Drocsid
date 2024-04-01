@@ -1,0 +1,105 @@
+.adminWrapper {
+    height: 100vh;
+    overflow: auto;
+    width: 100%;
+}
+
+.leftBar {
+    display: contents;
+    height: 100%;
+    width: 15%;
+    background: linear-gradient(to bottom, #0f0c29, #302b63);
+    color: #fff;
+}
+
+.leftBar>ul {
+    list-style: none;
+    width: 15%;
+}
+
+.leftBar>ul li {
+    margin: 10px 20px;
+    padding: 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s ease-out;
+}
+
+.leftBar>ul li:hover {
+    background: #2f2c29;
+    font-size: 23px
+}
+
+.bodyWrapper {
+    display: inline-block;
+    position: relative;
+    left: 15%;
+    width: 83%;
+    height: 100%;
+    margin-top: -150px;
+}
+
+
+.eventsTable {
+    width: 100%;
+    border: 1px solid #eeeeee;
+}
+
+.table-header {
+    width: 100%;
+    background: #000;
+    color: #fff;
+}
+
+.table-header>th {
+    width: 150px;
+}
+
+.table-row {
+    width: 100%;
+    padding: 18px 0;
+}
+
+.table-row:nth-of-type(odd) {
+    background: #eeeeee;
+}
+
+.table-row:nth-of-type(even) {
+    background: #aaaaaa;
+}
+
+.table-data,
+.header__item {
+    flex: 1 1 20%;
+    text-align: center;
+}
+
+.approveButton {
+    background: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    font-size: 20px;
+    padding: 10px;
+}
+
+.approveButton:hover {
+    background: #45a049;
+}
+
+.rejectButton {
+    background: #f44336;
+    color: white;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    font-size: 20px;
+    padding: 10px;
+}
+
+.rejectButton:hover {
+    background: #da190b;
+}
