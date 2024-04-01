@@ -4,6 +4,7 @@ import Login from "./pages/Login";
 import SignUp from "./pages/Signup";
 import Landing from "./pages/Landing";
 import Admin from "./pages/admin/admin";
+import ResetPass from "./pages/ResetPass";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./contexts/authContext";
 import EventDetails from './pages/EventDetails';
@@ -28,6 +29,7 @@ function App() {
           <Route path="/userprofile" element={<UserProfile/>} />
           <Route path="/create-event" element={<CreateEvent />} />
           <Route path="/event-status" element={<EventStatusPage />} />
+          <Route path="/resetpass" element={<ResetPass />} />
         </Routes>
       </AuthProvider>
     </Router>
