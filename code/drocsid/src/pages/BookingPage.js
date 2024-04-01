@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { collection, doc, runTransaction } from 'firebase/firestore';
 import { firestore } from '../firebase/firebase';
-import './BookingPage.css'; // Ensure you have the CSS file for styling
+import './BookingPage.css';
 import { getAuth } from 'firebase/auth';
 
 
@@ -41,7 +41,7 @@ const BookingPage = () => {
         // Create a new booking record
         const bookingRef = doc(collection(firestore, "bookings"));
         transaction.set(bookingRef, {
-          userId, // Ensure this is just a string
+          userId, 
           eventId,
           eventName: eventDoc.data().name, // Assuming event document has a 'name' field
           tickets: ticketQuantity,
@@ -83,7 +83,7 @@ const BookingPage = () => {
               +
             </button>
             <button 
-              type="button" // Similarly, prevent form submission for the decrement button
+              type="button" // Prevent form submission for the decrement button
               className="decrement-btn" 
               onClick={(e) => {
                 e.preventDefault();
