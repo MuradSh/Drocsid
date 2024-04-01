@@ -109,9 +109,9 @@ const Landing = () => {
                 email == "admin@gmail.com" ? <a className="nav-link" href="/admin">Admin</a> : null
               }
 
-               <a className="nav-link active-link" href="/create-event">
-                Create Event
-              </a>
+              {
+                sessionStorage.getItem("organizer") == 'true' ? <a className="nav-link" href="/organizer">Organizer</a> : null
+              }
               <a className="nav-link active-link" href="/event-status">
                 Profile
               </a>
@@ -170,9 +170,8 @@ const Landing = () => {
                   <button
                     key={category}
                     onClick={() => setSelectedCategory(category)}
-                    className={`filter-button ${
-                      selectedCategory === category ? "active" : ""
-                    }`}
+                    className={`filter-button ${selectedCategory === category ? "active" : ""
+                      }`}
                   >
                     {category}
                   </button>
