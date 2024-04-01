@@ -99,7 +99,7 @@ const Landing = () => {
         <div className="container">
           <div className="navbar-title">
             <a className="navbar-brand" href="/landing">
-              drocsid
+              Drocsid
             </a>
           </div>
 
@@ -108,7 +108,11 @@ const Landing = () => {
               {
                 email == "admin@gmail.com" ? <a className="nav-link" href="/admin">Admin</a> : null
               }
-              <a className="nav-link active-link" href="/landing">
+
+               <a className="nav-link active-link" href="/create-event">
+                Create Event
+              </a>
+              <a className="nav-link active-link" href="/event-status">
                 Profile
               </a>
               <a className="nav-link" href="/userProfile">

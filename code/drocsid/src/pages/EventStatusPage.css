@@ -1,0 +1,73 @@
+/* Event Status Page Styling */
+.event-status-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: #333;
+}
+
+.event-status-container h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: var(--purple);
+    margin-bottom: 2rem;
+}
+
+.event-status-container ul {
+    list-style-type: none;
+    padding: 0;
+    color: var(--purple);
+}
+
+.event-status-container li {
+    background-color: #f7f7f7;
+    margin: 0.5rem 0;
+    padding: 1rem;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.event-status-container span.event-name {
+    font-weight: bold;
+}
+
+.event-status-container span.event-status {
+    padding: 0.5rem 1rem;
+    border-radius: 15px;
+    color: #fff;
+    font-size: 0.85rem;
+}
+
+.status-approved {
+    background-color: #4CAF50; /* Green */
+}
+
+.status-pending {
+    background-color: #FF9800; /* Orange */
+}
+
+.status-rejected {
+    background-color: #F44336; /* Red */
+}
+
+.event-status-container p {
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+/* Add responsiveness for smaller screens */
+@media (max-width: 768px) {
+    .event-status-container {
+        padding: 1rem;
+        margin: 1rem;
+    }
+
+    .event-status-container h2 {
+        font-size: 2rem;
+    }
+}
