@@ -42,6 +42,7 @@ const Landing = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const categories = ["All", "Concerts", "Sports", "Theater"];
+  const [email, setEmail] = useState("");
 
   useEffect(() => {
     const fetchItems = async () => {
@@ -51,6 +52,7 @@ const Landing = () => {
         ...doc.data(),
       }));
       setAllItems(itemsArray);
+      setEmail(sessionStorage.getItem("email"));
       setFilteredItems(itemsArray);
     };
 
@@ -97,17 +99,24 @@ const Landing = () => {
         <div className="container">
           <div className="navbar-title">
             <a className="navbar-brand" href="/landing">
-              drocsid
+              Drocsid
             </a>
           </div>
 
           <div className="nav-links" id="navbarNav">
             <div className="navbar-nav nav-primary">
-              <a className="nav-link active-link" href="/landing">
-                Option 1
+              {
+                email == "admin@gmail.com" ? <a className="nav-link" href="/admin">Admin</a> : null
+              }
+
+               <a className="nav-link active-link" href="/create-event">
+                Create Event
               </a>
-              <a className="nav-link" href="/landing">
-                Option 2
+              <a className="nav-link active-link" href="/event-status">
+                Profile
+              </a>
+              <a className="nav-link" href="/userProfile">
+                Bookings
               </a>
               <a className="nav-link">
                 {userLoggedIn && (
@@ -170,12 +179,14 @@ const Landing = () => {
                 ))}
               </div>
               <div className="event-listings">
-                {filteredItems.map((event) => (
-                  <div
-                    key={event.id}
-                    className="event-card"
-                    onClick={() => handleEventClick(event.id)}
-                  >
+              {filteredItems
+    .filter(event => event.verified) // Only include verified events
+    .map(event => (
+      <div
+        key={event.id}
+        className="event-card"
+        onClick={() => handleEventClick(event.id)}
+      >
                     <h3>{event.name}</h3>
                     <p>{event.description}</p>
                   </div>

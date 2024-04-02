@@ -1,9 +1,11 @@
 import "./Signup.css";
+import "./ResetPass.css";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { doSignInWithEmailAndPassword } from "../firebase/auth";
 import { useAuth } from "../contexts/authContext";
 import { getAnalytics, logEvent } from "firebase/analytics";
+
 
 
 const analytics = getAnalytics();
@@ -34,6 +36,11 @@ const Login = () => {
     navigate("/signup");
   };
 
+  // Navigates to forgot password page
+  const handleForgotPasswordClick = () => {
+    navigate("/resetpass"); 
+  };
+
   return (
     <div className="main">
       {userLoggedIn && navigate("/Landing")}
@@ -62,10 +69,10 @@ const Login = () => {
         </form>
         <span
           className="forgotPasswordSwitch"
-          onClick={() => navigate("/forgotPassword")}
-        >
+          onClick={handleForgotPasswordClick}>
           Forgot password? Click here
         </span>
+        
         <span className="signUpSwitch" onClick={handleSignUpClick}>
           Don't have an account? Sign Up
         </span>

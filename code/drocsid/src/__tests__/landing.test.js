@@ -45,8 +45,14 @@ describe('Landing Page', () => {
         });
     });
 
+
     test('renders the search input and category buttons', async () => {
         render(<Landing />, { wrapper: BrowserRouter });
+    // Check for hero text
+//     const adminPanel = screen.getByText(/Event Ticketing/i);
+//     expect(adminPanel).not.toBeInTheDocument
+
+//   });
 
         expect(screen.getByPlaceholderText('Search events')).toBeInTheDocument();
         expect(await screen.findByText('All')).toBeInTheDocument();
