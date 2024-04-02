@@ -179,12 +179,14 @@ const Landing = () => {
                 ))}
               </div>
               <div className="event-listings">
-                {filteredItems.map((event) => (
-                  <div
-                    key={event.id}
-                    className="event-card"
-                    onClick={() => handleEventClick(event.id)}
-                  >
+              {filteredItems
+    .filter(event => event.verified) // Only include verified events
+    .map(event => (
+      <div
+        key={event.id}
+        className="event-card"
+        onClick={() => handleEventClick(event.id)}
+      >
                     <h3>{event.name}</h3>
                     <p>{event.description}</p>
                   </div>
