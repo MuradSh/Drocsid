@@ -110,7 +110,7 @@ const Landing = () => {
               }
 
               {
-                sessionStorage.getItem("organizer") == 'true' ? <a className="nav-link" href="/create-event">Organizer</a> : null
+                sessionStorage.getItem("organizer") == 'true' ? <a className="nav-link" href="/organizer">Organizer</a> : null
               }
               <a className="nav-link active-link" href="/event-status">
                 Profile
