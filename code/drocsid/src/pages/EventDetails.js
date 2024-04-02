@@ -4,6 +4,7 @@ import { doc, getDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { firestore } from "../firebase/firebase";
 import "./EventDetails.css";
+import Comments from "./Comments";
 
 const EventDetails = () => {
   const navigate = useNavigate();
@@ -58,6 +59,9 @@ const EventDetails = () => {
         <button className="button" onClick={() => navigate(`/book/${eventId}`)}>
           Purchase Tickets
         </button>
+      </div>
+      <div className="comment-section">
+        <Comments eventId={eventId} />
       </div>
     </div>
   );
