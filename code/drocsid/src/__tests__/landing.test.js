@@ -2,6 +2,46 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import Landing from '../pages/Landing'; // Replace './Landing' with your actual path
 
+const mockSessionStorage = (() => {
+  let store = {};
+  return {
+    getItem(key) {
+      return store[key] || null;
+    },
+    setItem(key, value) {
+      store[key] = value.toString();
+    },
+    clear() {
+      store = {};
+    }
+  };
+})();
+
+Object.defineProperty(window, 'sessionStorage', {
+  value: mockSessionStorage
+});
+
+
+const mockSessionStorage = (() => {
+  let store = {};
+  return {
+    getItem(key) {
+      return store[key] || null;
+    },
+    setItem(key, value) {
+      store[key] = value.toString();
+    },
+    clear() {
+      store = {};
+    }
+  };
+})();
+
+Object.defineProperty(window, 'sessionStorage', {
+  value: mockSessionStorage
+});
+
+
 // Test suite for Landing component
 describe('Landing component', () => {
   // Test case for basic rendering
@@ -36,6 +76,15 @@ describe('Landing component', () => {
     const adminPanel = screen.getByText(/Event Ticketing/i);
     expect(adminPanel).not.toBeInTheDocument
 
+  });
+
+
+  it('renders the Organizer link if organizer is true in sessionStorage', () => {
+    window.sessionStorage.setItem("organizer", 'true');
+
+    render(<Navigation />);
+
+    expect(screen.getByHref('/organizer')).toBeInTheDocument();
   });
 
 });
