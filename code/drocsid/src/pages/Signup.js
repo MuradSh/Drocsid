@@ -2,6 +2,8 @@ import "./Signup.css";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { doCreateUserWithEmailAndPassword } from "../firebase/auth";
+import { collection, updateDoc, addDoc } from 'firebase/firestore';
+import { firestore } from '../firebase/firebase';
 
 
 function SignUp() {
@@ -20,12 +22,32 @@ function SignUp() {
     try {
       // Create user with email and password
       await doCreateUserWithEmailAndPassword(email, password);
+      await addToFirestore(username, email);
       console.log("SignUp successful", { username, email });
       navigate("/landing"); // Redirect the user after successful sign-up
     } catch (error) {
       console.error("SignUp failed", error);
     }
   };
+
+  const addToFirestore = async (username, email) => {
+    console.log("Adding user to Firestore", {
+      username: username,
+      email: email,
+      dateSignedUp: new Date(),
+      lastLoggedIn: new Date(),
+    });
+    const docRef = await addDoc(collection(firestore, "users"),
+      {
+        username: username,
+        email: email,
+        dateSignedUp: new Date(),
+        lastLoggedIn: new Date(),
+      },
+    );
+    console.log("Document written with ID: ", docRef.id);
+  }
+
 
   const handleSignInClick = () => {
     navigate("/");
