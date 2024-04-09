@@ -1,6 +1,26 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import Landing from '../src/pages/Landing'; // Replace './Landing' with your actual path
+import Landing from '../pages/Landing'; // Replace './Landing' with your actual path
+
+const mockSessionStorage = (() => {
+  let store = {};
+  return {
+    getItem(key) {
+      return store[key] || null;
+    },
+    setItem(key, value) {
+      store[key] = value.toString();
+    },
+    clear() {
+      store = {};
+    }
+  };
+})();
+
+Object.defineProperty(window, 'sessionStorage', {
+  value: mockSessionStorage
+});
+
 
 const mockSessionStorage = (() => {
   let store = {};

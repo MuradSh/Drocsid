@@ -1,4 +1,5 @@
 import "./Signup.css";
+import "./ResetPass.css";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { doSignInWithEmailAndPassword, } from "../firebase/auth";
@@ -25,11 +26,24 @@ const Login = () => {
       await getUserFromFirestore(email);
       sessionStorage.setItem("email", email);
       sessionStorage.setItem("loginTime", new Date().getTime());
-      console.log("Login successful", { email });
+      console.log("Login successful", email);
+      await updateFirestore(email);
       navigate("/landing"); // Redirect the user to the homepage after successful login
     } catch (error) {
       console.error("Login failed", error);
     }
+  };
+
+  const updateFirestore = async (email) => {
+    console.log(email);
+    const col = collection(firestore, "users");
+    const queryy = query(col, where("email", "==", email));
+    const querySnapshot = await getDocs(queryy);
+    const userRef = querySnapshot.docs[0].ref;
+    await updateDoc(userRef, {
+      lastLoggedIn: new Date(),
+    });
+    console.log("Document updated with ID: ", email);
   };
 
   // Navigates to sign up page
@@ -77,10 +91,10 @@ const Login = () => {
         </form>
         <span
           className="forgotPasswordSwitch"
-          onClick={() => navigate("/forgotPassword")}
-        >
+          onClick={handleForgotPasswordClick}>
           Forgot password? Click here
         </span>
+
         <span className="signUpSwitch" onClick={handleSignUpClick}>
           Don't have an account? Sign Up
         </span>
