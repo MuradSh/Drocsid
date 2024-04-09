@@ -10,27 +10,27 @@ import { doSignOut } from "../firebase/auth";
 const faqsList = [
   {
     id: 0,
-    questionText: "Lorem ipsum dolor sit amet?",
+    questionText: "What types of events can I find on Drocsid?",
     answerText:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, urna ac aliquet ultricies, nunc nisl tincidunt nunc, nec tincidunt nisl nunc auctor nunc. Nulla facilisi. Sed id semper nunc. Sed euismod, urna ac aliquet ultricies, nunc nisl tincidunt nunc, nec tincidunt nisl nunc auctor nunc. Nulla facilisi.",
+      "We offer a wide variety of events across many categories, including concerts, music festivals, sporting events, theater productions, comedy shows, workshops, conferences, and more. Use our search filters to explore specific categories or find events happening near you.",
   },
   {
     id: 1,
-    questionText: "Lorem ipsum dolor sit amet?",
+    questionText: "How do I know the events listed are legitimate?",
     answerText:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, urna ac aliquet ultricies, nunc nisl tincidunt nunc, nec tincidunt nisl nunc auctor nunc. Nulla facilisi. Sed id semper nunc. Sed euismod, urna ac aliquet ultricies, nunc nisl tincidunt nunc, nec tincidunt nisl nunc auctor nunc. Nulla facilisi.",
+      "Our platform prioritizes user safety and trust. All events are reviewed and verified by our admin team before being published.",
   },
   {
     id: 2,
-    questionText: "Lorem ipsum dolor sit amet?",
+    questionText: "How can I get help if I have questions or encounter issues?",
     answerText:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, urna ac aliquet ultricies, nunc nisl tincidunt nunc, nec tincidunt nisl nunc auctor nunc. Nulla facilisi. Sed id semper nunc. Sed euismod, urna ac aliquet ultricies, nunc nisl tincidunt nunc, nec tincidunt nisl nunc auctor nunc. Nulla facilisi.",
+      "We're here to help! If you have any questions or encounter issues while using our platform, you can email us at muradshahmammadli@gmai.com",
   },
   {
     id: 3,
-    questionText: "Lorem ipsum dolor sit amet?",
+    questionText: "Do you have a mobile app for purchasing tickets?",
     answerText:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, urna ac aliquet ultricies, nunc nisl tincidunt nunc, nec tincidunt nisl nunc auctor nunc. Nulla facilisi. Sed id semper nunc. Sed euismod, urna ac aliquet ultricies, nunc nisl tincidunt nunc, nec tincidunt nisl nunc auctor nunc. Nulla facilisi.",
+      "While we don't currently offer a dedicated mobile app, our platform is fully optimized for mobile browsing. You can easily search for events, view details, and purchase tickets directly from your mobile device's web browser.",
   },
 ];
 
@@ -139,14 +139,7 @@ const Landing = () => {
             <span>Event Ticketing</span>
           </div>
           <p className="hero-subtext">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            lacus purus, vehicula et justo ut, lobortis aliquet leo. Nulla ac
-            justo eget odio rhoncus suscipit quis vel ligula. Aliquam cursus
-            iaculis velit. Curabitur posuere venenatis quam, vel venenatis nulla
-            euismod at. Donec consectetur justo quis tellus elementum egestas.
-            Mauris orci nisl, lobortis et sagittis nec, cursus id felis. Cras
-            sodales ullamcorper enim non interdum. In fringilla augue a posuere
-            volutpat.
+          Unleash your event-going experience! Find unforgettable events happening near you, from heart-pounding concerts to captivating theater shows. Explore a diverse range of categories, discover hidden gems, and book your tickets effortlessly through our secure platform. Get ready to create lasting memories – your next adventure awaits!
           </p>
         </div>
       </section>
@@ -197,7 +190,7 @@ const Landing = () => {
 
         <div className="info-piece">
           <div className="info-text">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+            <p>Find exciting events near you and book tickets effortlessly.</p>
             <div className="discover-btn">Learn more</div>
           </div>
           <div className="info-img-container">
@@ -207,7 +200,7 @@ const Landing = () => {
 
         <div className="info-piece">
           <div className="info-text">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+            <p>Our secure platform makes buying tickets a breeze. Choose your preferred payment method and get instant confirmation.</p>
             <div className="discover-btn">Learn more</div>
           </div>
           <div className="info-img-container">
@@ -217,7 +210,7 @@ const Landing = () => {
 
         <div className="info-piece">
           <div className="info-text">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+            <p>Plan your next adventure with ease. Browse upcoming verified events, discover new experiences, and create lasting memories.</p>
             <div className="discover-btn">Learn more</div>
           </div>
           <div className="info-img-container">
