@@ -48,11 +48,20 @@ const Admin = () => {
         }));
         setAllElements(allItemsArray);
         setShowingElements(pendingItemsArray);
+        console.log(pendingItemsArray);
+        if (window.location.hash != "") {
+            if (window.location.hash == "#pen") {
+                setShowingElements(pendingItemsArray);
+            } else if (window.location.hash == "#all") {
+                setShowingElements(allItemsArray);
+            }
+        }
     };
 
     // changin page from left bar
     const changePage = (page) => {
         setPagez(page);
+        console.log(pendingElements);
         if (page == "#pen") {
             setShowingElements(pendingElements);
         } else if (page == "#all") {
@@ -182,16 +191,23 @@ const Admin = () => {
                                     <td className="table-data">{item.description}</td>
                                     <td className="table-data">{item.pricing}</td>
                                     <td className="table-data">{item.time}</td>
-                                    < td >
-                                        <button className="approveButton" onClick={() => handleDecision(true, item.id)}>Approve</button>
-                                        <button className="rejectButton" onClick={() => handleDecision(false, item.id)}>Reject</button>
+                                    <td>
+                                        {item.verified === undefined ? (
+                                            <>
+                                                <button className="approveButton" onClick={() => handleDecision(true, item.id)}>Approve</button>
+                                                <button className="rejectButton" onClick={() => handleDecision(false, item.id)}>Reject</button>
+                                            </>
+                                        ) : (
+                                            <span>{item.verified ? "Approved" : "Rejected"}</span>
+                                        )}
                                     </td>
+
                                 </tr>
                             ))
 
                         }
                     </tbody>
-                </table>
+                </table >
             </div >
         </div >
     );
