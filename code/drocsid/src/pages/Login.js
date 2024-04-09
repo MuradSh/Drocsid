@@ -6,7 +6,7 @@ import { doSignInWithEmailAndPassword, } from "../firebase/auth";
 import { useAuth } from "../contexts/authContext";
 import auth from "../firebase/firebase";
 import { getAnalytics, logEvent } from "firebase/analytics";
-import { collection, getDocs, doc, query, where } from "firebase/firestore";
+import { collection, updateDoc, getDocs, doc, query, where } from "firebase/firestore";
 import { firestore } from "../firebase/firebase";
 import User from "../models/user";
 const analytics = getAnalytics();
@@ -90,8 +90,7 @@ const Login = () => {
           <input type="submit" value="Sign In" className="cfa" />{" "}
         </form>
         <span
-          className="forgotPasswordSwitch"
-          onClick={handleForgotPasswordClick}>
+          className="forgotPasswordSwitch">
           Forgot password? Click here
         </span>
 
