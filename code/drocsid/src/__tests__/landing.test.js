@@ -22,26 +22,6 @@ Object.defineProperty(window, 'sessionStorage', {
 });
 
 
-const mockSessionStorage = (() => {
-  let store = {};
-  return {
-    getItem(key) {
-      return store[key] || null;
-    },
-    setItem(key, value) {
-      store[key] = value.toString();
-    },
-    clear() {
-      store = {};
-    }
-  };
-})();
-
-Object.defineProperty(window, 'sessionStorage', {
-  value: mockSessionStorage
-});
-
-
 // Test suite for Landing component
 describe('Landing component', () => {
   // Test case for basic rendering
