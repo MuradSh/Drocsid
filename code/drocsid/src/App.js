@@ -3,6 +3,7 @@ import "./App.css";
 import Login from "./pages/Login";
 import SignUp from "./pages/Signup";
 import Landing from "./pages/Landing";
+import ChangeCredentials from "./pages/ChangeEmailUsername.js";
 import Admin from "./pages/admin/admin";
 import ResetPass from "./pages/ResetPass";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -32,6 +33,7 @@ function App() {
           <Route path="/organizer" element={<Organizer />} />
           <Route path="/event-status" element={<EventStatusPage />} />
           <Route path="/resetpass" element={<ResetPass />} />
+          <Route path="/changecredentials" element={<ChangeCredentials />} />
         </Routes>
       </AuthProvider>
     </Router>

@@ -2,11 +2,20 @@ import React, { useState, useEffect } from 'react';
 import { firestore } from "../firebase/firebase";
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { useAuth } from "../contexts/authContext";
+import { useNavigate } from "react-router-dom";
 import './EventStatusPage.css';
+import "./ChangeEmailUsername.js";
 
 const EventStatusPage = () => {
     const [events, setEvents] = useState([]);
     const { currentUser } = useAuth();
+
+    const navigate = useNavigate();
+
+    const handleCredentialsChange = () => {
+        navigate("/changecredentials");
+    };
+
     useEffect(() => {
         const fetchEvents = async () => {
             if (!currentUser) return;
@@ -40,8 +49,11 @@ const EventStatusPage = () => {
                 </li>
             ))}
         </ul>
+
+        <button className="buttn" onClick={handleCredentialsChange}>Change User Credentials</button>
+
     </div>
-    
+
     );
 };
 

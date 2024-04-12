@@ -17,6 +17,18 @@ export const doPasswordReset = async (email) => {
   return sendPasswordResetEmail(auth, email);
 };
 
+/*
+export const changeEmail = async (email) => {
+  return auth.updateEmail(email);
+}
+
+export const changeUsername = async (username) => {
+  return auth.currentUser.updateProfile({
+    username: username
+    });
+}
+*/
+
 // export const doPasswordUpdate = async (password) => {
 //   return updatePassword(auth.currentUser, password);
 // };
