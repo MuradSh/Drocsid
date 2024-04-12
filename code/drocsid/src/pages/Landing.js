@@ -139,14 +139,7 @@ const Landing = () => {
             <span>Event Ticketing</span>
           </div>
           <p className="hero-subtext">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            lacus purus, vehicula et justo ut, lobortis aliquet leo. Nulla ac
-            justo eget odio rhoncus suscipit quis vel ligula. Aliquam cursus
-            iaculis velit. Curabitur posuere venenatis quam, vel venenatis nulla
-            euismod at. Donec consectetur justo quis tellus elementum egestas.
-            Mauris orci nisl, lobortis et sagittis nec, cursus id felis. Cras
-            sodales ullamcorper enim non interdum. In fringilla augue a posuere
-            volutpat.
+ 
           </p>
         </div>
       </section>
