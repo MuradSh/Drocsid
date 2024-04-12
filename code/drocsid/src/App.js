@@ -15,6 +15,7 @@ import UserProfile from "./pages/UserProfile";
 import CreateEvent from './pages/CreateEvent';
 import EventStatusPage from './pages/EventStatusPage';
 import Organizer from "./pages/Organizer";
+import Notifications from "./pages/Notifications";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <Route path="/book/:eventId" element={<BookingPage />} />
           <Route path="/booking-success" element={<BookingSuccessPage />} />
           <Route path="/userprofile" element={<UserProfile />} />
+          <Route path="/notifications" element={<Notifications />} />
           <Route path="/create-event" element={<CreateEvent />} />
           <Route path="/organizer" element={<Organizer />} />
           <Route path="/event-status" element={<EventStatusPage />} />

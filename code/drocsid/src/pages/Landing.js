@@ -43,6 +43,7 @@ const Landing = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const categories = ["All", "Concerts", "Sports", "Theater"];
   const [email, setEmail] = useState("");
+  const [notifications, setNotifications] = useState(0);
 
   useEffect(() => {
     const fetchItems = async () => {
@@ -58,6 +59,19 @@ const Landing = () => {
 
     fetchItems().catch(console.error);
   }, [userLoggedIn, navigate]);
+
+  useEffect(() => {
+    // get notifications
+    const fetchNotifications = async () => {
+      const querySnapshot = await getDocs(collection(firestore, "notifications"));
+      const notificationsArray = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setNotifications(notificationsArray.length);
+    }
+    fetchNotifications().catch(console.error);
+  }, []);
 
   useEffect(() => {
     const filtered = allItems.filter((item) => {
@@ -118,6 +132,12 @@ const Landing = () => {
               <a className="nav-link" href="/userProfile">
                 Bookings
               </a>
+              <a className="nav-link" href="/notifications">
+                {
+                  notifications > 0 ? <span class="notification-count">{notifications}</span> : null
+                }
+                Notifications
+              </a>
               <a className="nav-link">
                 {userLoggedIn && (
                   <button onClick={handleSignOut} className="sign-out-button">
@@ -171,18 +191,18 @@ const Landing = () => {
                 ))}
               </div>
               <div className="event-listings">
-              {filteredItems
-    .filter(event => event.verified) // Only include verified events
-    .map(event => (
-      <div
-        key={event.id}
-        className="event-card"
-        onClick={() => handleEventClick(event.id)}
-      >
-                    <h3>{event.name}</h3>
-                    <p>{event.description}</p>
-                  </div>
-                ))}
+                {filteredItems
+                  .filter(event => event.verified) // Only include verified events
+                  .map(event => (
+                    <div
+                      key={event.id}
+                      className="event-card"
+                      onClick={() => handleEventClick(event.id)}
+                    >
+                      <h3>{event.name}</h3>
+                      <p>{event.description}</p>
+                    </div>
+                  ))}
               </div>
             </div>
           </div>

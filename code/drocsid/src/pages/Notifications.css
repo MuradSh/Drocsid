@@ -1,0 +1,10 @@
+.notificationsRoot {
+    height: 100vh;
+    overflow: auto;
+    width: 100%;
+}
+
+#root {
+    width: 100%;
+    margin: 0;
+}
