@@ -1,0 +1,17 @@
+.organizerWrap {
+    width: 100%;
+}
+
+.organizerWrap>table {
+    margin: 25px;
+    width: 95%;
+}
+
+.organizerWrap>table {
+    font-size: 23px;
+    padding: 5px;
+}
+
+.organizerWrap>table>tbody>tr>td {
+    padding: 15px;
+}

@@ -18,7 +18,7 @@ const CreateEvent = () => {
     });
 
     const navigate = useNavigate(); // Initialize useNavigate
-    
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setEventData(prevState => ({
@@ -37,10 +37,12 @@ const CreateEvent = () => {
         const organizerId = auth.currentUser.uid; // Get the current user's UID
 
         try {
-            await addDoc(collection(firestore, 'events'), { 
-                ...eventData, 
+            var email = sessionStorage.getItem("email");
+            await addDoc(collection(firestore, 'events'), {
+                ...eventData,
                 organizerId, // Include the organizer's UID
-                status: 'Pending Approval' 
+                organizer: email, // Include the organizer's email
+                status: 'Pending Approval'
             });
             alert('Event created successfully and is awaiting admin approval.');
             navigate('/landing'); // Redirect to landing page
@@ -53,80 +55,80 @@ const CreateEvent = () => {
 
     return (
         <div className="form-container">
-        <form onSubmit={handleSubmit}>
-            <div className="form-header">
-                <h2>Create Event</h2>
-            </div>
-            <div className="form-section">
-                <input 
-                    className="form-input" 
-                    name="name" 
-                    value={eventData.name} 
-                    onChange={handleChange} 
-                    placeholder="Event Name" 
-                    required 
-                />
-                <input 
-                    className="form-input" 
-                    name="category" 
-                    value={eventData.category} 
-                    onChange={handleChange} 
-                    placeholder="Category" 
-                    required 
-                />
-                <input 
-                    className="form-input" 
-                    type="date" 
-                    name="date" 
-                    value={eventData.date} 
-                    onChange={handleChange} 
-                    placeholder="Date" 
-                    required 
-                />
-                <input 
-                    className="form-input" 
-                    type="time" 
-                    name="time" 
-                    value={eventData.time} 
-                    onChange={handleChange} 
-                    placeholder="Time" 
-                    required 
-                />
-                <input 
-                    className="form-input" 
-                    name="venue" 
-                    value={eventData.venue} 
-                    onChange={handleChange} 
-                    placeholder="Venue" 
-                    required 
-                />
-                <textarea 
-                    className="form-input" 
-                    name="description" 
-                    value={eventData.description} 
-                    onChange={handleChange} 
-                    placeholder="Description" 
-                    required 
-                />
-                <input 
-                    className="form-input" 
-                    name="pricing" 
-                    value={eventData.pricing} 
-                    onChange={handleChange} 
-                    placeholder="Pricing" 
-                    required 
-                />
-                <input 
-                    className="form-input" 
-                    type="number" 
-                    name="availability" 
-                    value={eventData.availability} 
-                    onChange={handleChange} 
-                    placeholder="Availability" 
-                    required 
-                />
-            </div>
-            <div className="center">
+            <form onSubmit={handleSubmit}>
+                <div className="form-header">
+                    <h2>Create Event</h2>
+                </div>
+                <div className="form-section">
+                    <input
+                        className="form-input"
+                        name="name"
+                        value={eventData.name}
+                        onChange={handleChange}
+                        placeholder="Event Name"
+                        required
+                    />
+                    <input
+                        className="form-input"
+                        name="category"
+                        value={eventData.category}
+                        onChange={handleChange}
+                        placeholder="Category"
+                        required
+                    />
+                    <input
+                        className="form-input"
+                        type="date"
+                        name="date"
+                        value={eventData.date}
+                        onChange={handleChange}
+                        placeholder="Date"
+                        required
+                    />
+                    <input
+                        className="form-input"
+                        type="time"
+                        name="time"
+                        value={eventData.time}
+                        onChange={handleChange}
+                        placeholder="Time"
+                        required
+                    />
+                    <input
+                        className="form-input"
+                        name="venue"
+                        value={eventData.venue}
+                        onChange={handleChange}
+                        placeholder="Venue"
+                        required
+                    />
+                    <textarea
+                        className="form-input"
+                        name="description"
+                        value={eventData.description}
+                        onChange={handleChange}
+                        placeholder="Description"
+                        required
+                    />
+                    <input
+                        className="form-input"
+                        name="pricing"
+                        value={eventData.pricing}
+                        onChange={handleChange}
+                        placeholder="Pricing"
+                        required
+                    />
+                    <input
+                        className="form-input"
+                        type="number"
+                        name="availability"
+                        value={eventData.availability}
+                        onChange={handleChange}
+                        placeholder="Availability"
+                        required
+                    />
+                </div>
+                <div className="center">
                     <button type="submit" className="button">Submit Event</button>
                 </div>
             </form>

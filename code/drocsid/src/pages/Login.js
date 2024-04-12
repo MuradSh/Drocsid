@@ -2,13 +2,13 @@ import "./Signup.css";
 import "./ResetPass.css";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { doSignInWithEmailAndPassword } from "../firebase/auth";
+import { doSignInWithEmailAndPassword, } from "../firebase/auth";
 import { useAuth } from "../contexts/authContext";
+import auth from "../firebase/firebase";
 import { getAnalytics, logEvent } from "firebase/analytics";
-import { collection, updateDoc, query, getDocs, where } from 'firebase/firestore';
-import { firestore } from '../firebase/firebase';
-
-
+import { collection, updateDoc, getDocs, doc, query, where } from "firebase/firestore";
+import { firestore } from "../firebase/firebase";
+import User from "../models/user";
 const analytics = getAnalytics();
 logEvent(analytics, 'notification_received');
 
@@ -23,6 +23,7 @@ const Login = () => {
     event.preventDefault(); // Prevents the default form submission action
     try {
       await doSignInWithEmailAndPassword(email, password);
+      await getUserFromFirestore(email);
       sessionStorage.setItem("email", email);
       sessionStorage.setItem("loginTime", new Date().getTime());
       console.log("Login successful", email);
@@ -50,10 +51,17 @@ const Login = () => {
     navigate("/signup");
   };
 
-  // Navigates to forgot password page
-  const handleForgotPasswordClick = () => {
-    navigate("/resetpass"); 
-  };
+  const getUserFromFirestore = async (email) => {
+    const usersRef = collection(firestore, "users");
+    const q = query(usersRef, where("email", "==", email));
+
+    const querySnapshot = await getDocs(q);
+
+    querySnapshot.forEach((doc) => {
+      console.log(doc.data().organizer);
+      sessionStorage.setItem("organizer", doc.data().organizer);
+    });
+  }
 
   return (
     <div className="main">
@@ -82,11 +90,10 @@ const Login = () => {
           <input type="submit" value="Sign In" className="cfa" />{" "}
         </form>
         <span
-          className="forgotPasswordSwitch"
-          onClick={handleForgotPasswordClick}>
+          className="forgotPasswordSwitch">
           Forgot password? Click here
         </span>
-        
+
         <span className="signUpSwitch" onClick={handleSignUpClick}>
           Don't have an account? Sign Up
         </span>
