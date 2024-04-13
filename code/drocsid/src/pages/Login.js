@@ -90,7 +90,8 @@ const Login = () => {
           <input type="submit" value="Sign In" className="cfa" />{" "}
         </form>
         <span
-          className="forgotPasswordSwitch">
+          className="forgotPasswordSwitch"
+          onClick={() => { navigate("/resetpass") }}>
           Forgot password? Click here
         </span>
 
