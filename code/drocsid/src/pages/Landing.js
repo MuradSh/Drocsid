@@ -124,7 +124,7 @@ const Landing = () => {
               }
 
               {
-                sessionStorage.getItem("organizer") == 'true' ? <a className="nav-link" href="/organizer">Organizer</a> : null
+                <a className="nav-link" href="/organizer">Organizer</a>
               }
               <a className="nav-link active-link" href="/event-status">
                 Profile
@@ -159,7 +159,7 @@ const Landing = () => {
             <span>Event Ticketing</span>
           </div>
           <p className="hero-subtext">
-          Unleash your event-going experience! Find unforgettable events happening near you, from heart-pounding concerts to captivating theater shows. Explore a diverse range of categories, discover hidden gems, and book your tickets effortlessly through our secure platform. Get ready to create lasting memories – your next adventure awaits!
+            Unleash your event-going experience! Find unforgettable events happening near you, from heart-pounding concerts to captivating theater shows. Explore a diverse range of categories, discover hidden gems, and book your tickets effortlessly through our secure platform. Get ready to create lasting memories – your next adventure awaits!
           </p>
         </div>
       </section>
